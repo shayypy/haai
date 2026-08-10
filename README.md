@@ -1,18 +1,6 @@
-# Welcome to React Router!
+# Lowadi Alternate Apple Index (LAAI)
 
-A modern, production-ready template for building full-stack React applications using React Router.
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
-
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+A static site built with React Router (Declarative Mode) and Bun, deployed to GitHub Pages.
 
 ## Getting Started
 
@@ -21,7 +9,7 @@ A modern, production-ready template for building full-stack React applications u
 Install the dependencies:
 
 ```bash
-npm install
+bun install
 ```
 
 ### Development
@@ -29,7 +17,7 @@ npm install
 Start the development server with HMR:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
@@ -39,49 +27,23 @@ Your application will be available at `http://localhost:5173`.
 Create a production build:
 
 ```bash
-npm run build
+bun run build
+```
+
+This outputs a fully static site to `dist/`. Preview it locally with:
+
+```bash
+bun run preview
 ```
 
 ## Deployment
 
-### Docker Deployment
+Pushes to `main` trigger [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds the site with Bun and publishes `dist/` to GitHub Pages via `actions/deploy-pages`.
 
-To build and run using Docker:
+The repo's Pages source must be set to **GitHub Actions**. The site is served at the custom domain in [`public/CNAME`](public/CNAME); update that file (and the domain's DNS) if the domain changes.
 
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
+Because this is a client-side-routed single-page app, [`public/404.html`](public/404.html) redirects unknown paths back to `index.html` so deep links and refreshes work on GitHub Pages' static hosting.
 
 ## Styling
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+This project uses [Tailwind CSS](https://tailwindcss.com/).

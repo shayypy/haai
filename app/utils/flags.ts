@@ -102,15 +102,156 @@ export const TagsFlags = {
 };
 
 export const parseFlags = <Key extends string = string>(
-  value: number | string,
+  value: number | bigint,
   set: Record<Key, number | bigint>,
 ) => {
-  const val = BigInt(value);
   const keys: Key[] = [];
   for (const [key, flag] of Object.entries(set)) {
-    if ((BigInt(flag as number) & val) === val) {
-      keys.push(key as Key);
+    if (typeof value === "bigint") {
+      if (((flag as bigint) & value) === flag) {
+        keys.push(key as Key);
+      }
+    } else {
+      if (((flag as number) & value) === flag) {
+        keys.push(key as Key);
+      }
     }
   }
   return keys;
 };
+
+export const colorNames: Record<keyof typeof ColorFlags, string> = {
+  b: "black",
+  l: "blue",
+  n: "brown",
+  e: "green",
+  g: "gray",
+  y: "yellow",
+  p: "pink",
+  u: "purple",
+  w: "white",
+  r: "red",
+};
+
+export const horseTypeNames: Record<string, string> = {
+  dok: "Donkey",
+  dkp: "Donkey pegasus",
+  dku: "Donkey unicorn",
+  dkw: "Donkey winged unicorn",
+  dh: "Draft horse",
+  dhp: "Draft pegasus",
+  dhu: "Draft unicorn",
+  dhw: "Draft winged unicorn",
+  p: "Pony",
+  pp: "Pony pegasus",
+  pu: "Pony unicorn",
+  pwu: "Pony winged unicorn",
+  rh: "Riding horse",
+  rp: "Riding pegasus",
+  riu: "Riding unicorn",
+  rwu: "Riding winged unicorn",
+  at: "Akhal-Teke",
+  ac: "American Curly",
+  am: "Americas",
+  ah: "Arabian Horse",
+  dp: "Draft Pony",
+  fri: "Friesian",
+  haf: "Haflinger",
+  hd: "Heavy Draft",
+  ic: "Irish Cob",
+  ld: "Light Draft",
+  mw: "Marwari",
+  nor: "Nordics",
+  spy: "Sport Pony",
+  tb: "Thoroughbred",
+  tr: "Trotter",
+  wb: "Warmblood",
+};
+
+export const tagNames: Record<keyof typeof TagsFlags, string> = {
+  ab: "above/below",
+  bt: "big tail",
+  bw: "big wings",
+  bp: "body paint",
+  braids: "braids",
+  ch: "chains",
+  cl: "clothing",
+  dr: "draconic",
+  left: "facing left",
+  right: "facing right",
+  fy: "foal",
+  hair: "hairy",
+  jy: "jewelry",
+  mh: "multi-heads",
+  ml: "multi-legs",
+  tack: "tack",
+  bay: "bay",
+  black: "black",
+  red: "red",
+  cream: "cream",
+  dun: "dun",
+  cfan: "fantasy",
+  gray: "gray",
+  leo: "leopard",
+  spot: "pangare",
+  pinto: "pinto",
+  roan: "roan",
+  seal: "seal bay",
+  afk: "africa",
+  ame: "america",
+  emb: "emblems",
+  jpn: "japan",
+  myt: "mythos",
+  pir: "pirates",
+  pri: "primeval",
+  afr: "animal friends",
+  stars: "stars",
+  fla: "flames",
+  fs: "food",
+  gs: "space",
+  gil: "gilded",
+  jcg: "gems",
+  mus: "music",
+  obb: "beside object",
+  obi: "inside object",
+  pg: "plants",
+  spo: "sport",
+  rb: "rainbows",
+  swirl: "swirls",
+  ann: "anniversary",
+  nyd: "new years",
+  esp: "spring",
+  spk: "spooky",
+  val: "valentines",
+  buck: "bucking",
+  run: "running",
+  drs: "dressage",
+  aer: "aerial",
+  ghd: "grazing",
+  jump: "jumping",
+  lysi: "sitting",
+  pos: "posing",
+  st: "standing",
+  trot: "trotting",
+  walk: "walking",
+  abs: "abstract",
+  anb: "an-bird",
+  ant: "an-fantasy",
+  anf: "an-fish",
+  ani: "an-insect",
+  anm: "an-mammal",
+  anr: "an-reptile",
+  cute: "cute",
+  lig: "light",
+  pt: "painting",
+  rea: "realistic",
+  retro: "retro",
+  sp: "steampunk",
+  tsp: "transparent",
+  sno: "snow",
+  wat: "water",
+  win: "wind",
+};
+
+export const maxUses = [100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
+export type MaxUses = (typeof maxUses)[number];
