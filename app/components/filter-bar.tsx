@@ -1,3 +1,5 @@
+import { GrClear } from "react-icons/gr";
+import { twMerge } from "tailwind-merge";
 import {
   breedNames,
   colorNames,
@@ -52,7 +54,7 @@ export function FilterBar({
   view: ViewState;
   update: (
     partial: Partial<ViewState>,
-    opts?: { resetPage?: boolean; replace?: boolean },
+    opts?: { resetPage?: boolean; replace?: boolean; retain?: boolean },
   ) => void;
   total: number;
 }) {
@@ -71,8 +73,20 @@ export function FilterBar({
           value={view.q}
           onChange={(e) => update({ q: e.target.value }, { resetPage: true })}
           placeholder="Search name / author…"
-          className={`${selectClass} w-40`}
+          className={twMerge(selectClass, "w-40")}
         />
+        <button
+          type="button"
+          className={twMerge(selectClass, "cursor-pointer")}
+          onClick={() =>
+            update(
+              { layout: view.layout },
+              { resetPage: true, replace: true, retain: false },
+            )
+          }
+        >
+          <GrClear className="text-lg" />
+        </button>
 
         <select
           value={view.layout ?? "table"}
@@ -133,9 +147,9 @@ export function FilterBar({
           }
           className={selectClass}
         >
-          <option value="any">Retired: Any</option>
-          <option value="yes">Retired: Yes</option>
-          <option value="no">Retired: No</option>
+          <option value="any">Retired Apple: Any</option>
+          <option value="yes">Retired Apple: Yes</option>
+          <option value="no">Retired Apple: No</option>
         </select>
 
         <select

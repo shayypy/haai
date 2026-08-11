@@ -28,6 +28,24 @@ export interface ViewState {
   layout: ViewLayout;
 }
 
+const defaultViewState: ViewState = {
+  q: "",
+  server: null,
+  retired: "any",
+  helios: "any",
+  horse_type: null,
+  breed_ref: null,
+  colors: [],
+  uses: null,
+  tags: [],
+  sort: null,
+  dir: "asc",
+  page: 1,
+  limit: 50,
+  row: null,
+  layout: "table",
+};
+
 const TRI_STATES: TriState[] = ["any", "yes", "no"];
 const SORT_FIELDS: SortField[] = [
   "name",
@@ -77,17 +95,22 @@ export function useViewState() {
     };
   }, [searchParams]);
 
-  const hasAnyParam = searchParams.size > 0;
+  const paramsWithoutLayout = new URLSearchParams(searchParams);
+  paramsWithoutLayout.delete("layout");
+  const hasAnyParam = paramsWithoutLayout.size > 0;
 
   const update = useCallback(
     (
       partial: Partial<ViewState>,
-      opts: { resetPage?: boolean; replace?: boolean } = {},
+      opts: { resetPage?: boolean; replace?: boolean; retain?: boolean } = {},
     ) => {
       setSearchParams(
         (prev) => {
           const next = new URLSearchParams(prev);
-          const merged = { ...view, ...partial };
+          const merged =
+            opts.retain === false
+              ? { ...defaultViewState, ...partial }
+              : { ...view, ...partial };
           if (opts.resetPage) merged.page = 1;
 
           const write = (key: string, value: string | null) => {
