@@ -94,7 +94,7 @@ function ThumbnailInfo({ imageUrl }: { imageUrl: string }) {
       {open && (
         <div className="absolute left-0 top-full mt-1 w-48 rounded-lg border border-slate-100/10 bg-slate-800 p-2 text-xs shadow-lg">
           <p className="text-gray-300">
-            LAAI serves half-resolution thumbnails for browsing and wishes to
+            HAAI serves half-resolution thumbnails for browsing and wishes to
             respect the rights holders by not duplicating images in full.
           </p>
           <a

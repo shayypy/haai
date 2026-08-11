@@ -185,9 +185,9 @@ export function Home() {
     <div className="py-6">
       <div className="max-w-4xl mx-auto px-6">
         <p className="font-semibold text-xl">
-          LAAI{" "}
+          HAAI{" "}
           <span className="text-gray-400 ms-2">
-            Lowadi Alternate Apple Index
+            Howrse Alternate Apple Index
           </span>
         </p>
         <p className="text-gray-200 mt-1">blah blah blurb</p>
@@ -243,8 +243,10 @@ export function Home() {
                   </div>
                   <div className="pt-1 pb-2 bg-slate-900 rounded-b-lg w-full">
                     <div className="px-2">
-                      <p className="font-medium text-center truncate group-hover:underline">
-                        {row.name}
+                      <p className="font-medium text-center truncate">
+                        <span className="group-hover:underline">
+                          {row.name}
+                        </span>
                         <span className="text-gray-300 text-sm font-normal">
                           {" "}
                           by {row.author}

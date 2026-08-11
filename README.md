@@ -1,4 +1,4 @@
-# Lowadi Alternate Apple Index (LAAI)
+# Howrse Alternate Apple Index (HAAI)
 
 A static site built with React Router (Declarative Mode) and Bun, deployed to GitHub Pages.
 
@@ -21,6 +21,10 @@ bun run dev
 ```
 
 Your application will be available at `http://localhost:5173`.
+
+#### Data Source
+
+The master data is an SQLite database managed in DBeaver. It is exported to JSON, which is then passed to `import.ts` to create `data.json` and `stats.json`. Do not modify either of those files as they are both automatically generated. This might seem like an awkward workflow but it works sufficiently well. To submit a data correction, notify us so that we can manually deal with it.
 
 ## Building for Production
 

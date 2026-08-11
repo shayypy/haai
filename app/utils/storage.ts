@@ -1,6 +1,6 @@
 import type { TableRow } from "./types";
 
-const DB_NAME = "lowadi";
+const DB_NAME = "haai";
 const STORE_NAME = "dataset";
 const RECORD_KEY = "current";
 
