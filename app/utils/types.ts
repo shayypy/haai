@@ -5,7 +5,7 @@ export interface TableRow {
   server?: string;
   colors?: number;
   image_url: string;
-  flags?: RowFlags;
+  flags?: number; // RowFlags
   uses?: number;
   retired_in?: string;
   tags?: string;
@@ -15,9 +15,4 @@ export interface TableRow {
   uploaded?: string;
   /** row creation date - yyyy-mm-dd */
   archived: string;
-}
-
-export enum RowFlags {
-  Retired = 1 << 0,
-  HeliosRay = 1 << 1,
 }

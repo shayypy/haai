@@ -1,6 +1,7 @@
 export const RowFlags = {
   Retired: 1 << 0,
   HeliosRay: 1 << 1,
+  HasThumbnail: 1 << 2,
 };
 
 export const ColorFlags = {
@@ -150,6 +151,9 @@ export const horseTypeNames: Record<string, string> = {
   rp: "Riding pegasus",
   riu: "Riding unicorn",
   rwu: "Riding winged unicorn",
+};
+
+export const breedNames: Record<string, string> = {
   at: "Akhal-Teke",
   ac: "American Curly",
   am: "Americas",

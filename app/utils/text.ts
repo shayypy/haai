@@ -98,6 +98,15 @@ export const getServerRegions = (name: string): string[] =>
     .map((part) => namesToRegions[part])
     .filter((v) => !!v);
 
+export const regionToEmoji = (region: string) =>
+  region === "INT"
+    ? "🌏"
+    : String(region)
+        .toUpperCase()
+        .split("")
+        .map((char) => String.fromCodePoint(127397 + char.charCodeAt(0)))
+        .join("");
+
 export const regionToEmojiCode = (region: string) =>
   region === "INT"
     ? "1f30f"

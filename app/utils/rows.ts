@@ -10,6 +10,7 @@ export interface ParsedRow {
   helios_ray: boolean;
   colors: string[];
   image_url: string;
+  thumbnail_url?: string;
   uses?: number;
   retired_in?: string;
   tags: string[];
@@ -30,6 +31,9 @@ export const processRow = (row: TableRow): ParsedRow => {
     author: row.author,
     server: row.server,
     image_url: row.image_url,
+    thumbnail_url: parseFlags(row.flags ?? 0, RowFlags).includes("HasThumbnail")
+      ? `${origin}/images/${row.id}.webp`
+      : undefined,
     retired: parseFlags(row.flags ?? 0, RowFlags).includes("Retired"),
     helios_ray: parseFlags(row.flags ?? 0, RowFlags).includes("HeliosRay"),
     colors,

@@ -12,6 +12,7 @@
     "@twemoji/api": "^17.0.3",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-icons": "^5.7.0",
     "react-router": "^8",
     "tailwind-merge": "^3.6.0"
   },
