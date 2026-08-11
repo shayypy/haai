@@ -64,13 +64,20 @@ function DatasetStatus({
   switch (dataset.status) {
     case "idle":
       return (
-        <button
-          type="button"
-          onClick={dataset.load}
-          className="rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors px-4 py-1.5 font-medium border border-slate-100/10"
-        >
-          Load Data
-        </button>
+        <div className="flex items-start gap-4">
+          <button
+            type="button"
+            onClick={dataset.load}
+            className="rounded-lg bg-slate-800 hover:bg-slate-700 transition-colors px-4 py-1.5 font-medium border border-slate-100/10 shrink-0"
+          >
+            Load Table
+          </button>
+          <p className="text-gray-200">
+            This will load the dataset (a few MBs) into your browser. Then, you
+            can save this site as a progressive web app (PWA) to view it
+            offline.
+          </p>
+        </div>
       );
     case "loading":
       return <p className="text-gray-400">Loading dataset…</p>;
@@ -366,7 +373,9 @@ export function Home() {
           )}
         </div>
       ) : (
-        <DatasetStatus dataset={dataset} />
+        <div className="max-w-4xl mx-auto px-6 mt-4 border-t border-t-slate-100/20 pt-4">
+          <DatasetStatus dataset={dataset} />
+        </div>
       )}
       {view.row != null && dataset.status === "ready" ? (
         <RowModal
