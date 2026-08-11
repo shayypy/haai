@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useReducer } from "react";
+import { FaBed, FaSun } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import {
   breedNames,
@@ -7,7 +8,7 @@ import {
   tagNames,
 } from "~/utils/flags";
 import { processRow } from "~/utils/rows";
-import { regionToEmojiCode, twemojiUrl } from "~/utils/text";
+import { getServerName, regionToEmojiCode, twemojiUrl } from "~/utils/text";
 import { FilterBar } from "../components/filter-bar";
 import { RowModal } from "../components/row-modal";
 import { useDataset } from "../hooks/use-dataset";
@@ -188,7 +189,81 @@ export function Home() {
         <div className="mt-4 max-w-fit mx-auto px-6">
           <FilterBar view={view} update={update} total={total} />
           {view.layout === "gallery" ? (
-            <div className="mt-2"></div>
+            <div className="mt-2 gap-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
+              {pageRows.map((row) => (
+                <button
+                  key={`row-${row.id}`}
+                  type="button"
+                  className="rounded-lg bg-slate-800 border-2 border-slate-100/10 group hover:-translate-y-1.5 transition-transform"
+                  onClick={() => update({ row: row.id }, { resetPage: false })}
+                >
+                  <div className="relative">
+                    <img
+                      src={row.thumbnail_url ?? row.image_url}
+                      className="h-40 aspect-square object-contain p-1 m-auto"
+                      alt=""
+                    />
+                    <div className="absolute bottom-0.5 inset-s-1.5 flex flex-col gap-y-1">
+                      {row.helios_ray ? (
+                        <div
+                          className="h-4.5 w-6 bg-slate-700 rounded-xs flex"
+                          title="Helios Ray"
+                        >
+                          <FaSun className="m-auto text-sm" />
+                        </div>
+                      ) : null}
+                      {row.retired ? (
+                        <div
+                          className="h-4.5 w-6 bg-slate-700 rounded-xs flex border border-transparent"
+                          title="Retired"
+                        >
+                          <FaBed className="mx-auto -mt-px text-lg" />
+                        </div>
+                      ) : null}
+                      {row.server ? (
+                        <img
+                          className="h-6 -mt-1"
+                          src={twemojiUrl(regionToEmojiCode(row.server))}
+                          alt=""
+                          title={getServerName(row.server)}
+                        />
+                      ) : null}
+                    </div>
+                  </div>
+                  <div className="pt-1 pb-2 bg-slate-900 rounded-b-lg w-full">
+                    <div className="px-2">
+                      <p className="font-medium text-center truncate group-hover:underline">
+                        {row.name}
+                      </p>
+                      <p className="text-sm truncate">
+                        <span className="text-gray-400">
+                          {horseTypeNames[row.horse_type]}
+                        </span>
+                        {row.breed_ref ? (
+                          <span className="text-gray-300">
+                            {" "}
+                            / {breedNames[row.breed_ref]}
+                          </span>
+                        ) : null}
+                      </p>
+                    </div>
+                    {row.tags.length === 0 ? null : (
+                      <div className="flex flex-nowrap gap-1 overflow-x-auto mt-1 px-2">
+                        {row.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="shrink-0 text-sm bg-slate-700 px-1 rounded"
+                          >
+                            {/* @ts-expect-error */}
+                            {tagNames[tag] ?? tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
           ) : (
             <div className="mt-2 rounded-lg bg-slate-900 border-2 border-slate-100/10 overflow-y-hidden overflow-x-auto flex flex-col gap-0.5">
               <div className="flex gap-0.5">
