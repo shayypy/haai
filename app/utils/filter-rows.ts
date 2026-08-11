@@ -44,11 +44,11 @@ export function filterRows(
     }
     if (
       view.colors.length &&
-      !view.colors.some((c) => row.colors.includes(c))
+      !view.colors.every((c) => row.colors.includes(c))
     ) {
       return false;
     }
-    if (view.tags.length && !view.tags.some((t) => row.tags.includes(t))) {
+    if (view.tags.length && !view.tags.every((t) => row.tags.includes(t))) {
       return false;
     }
     return true;
