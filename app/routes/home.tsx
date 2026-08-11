@@ -224,7 +224,11 @@ export function Home() {
                           className="h-4.5 w-6 bg-slate-700 rounded-xs flex border border-transparent"
                           title="Retired"
                         >
-                          <FaBed className="mx-auto -mt-px text-lg" />
+                          {row.uses ? (
+                            <p className="text-xs font-medium">{row.uses}</p>
+                          ) : (
+                            <FaBed className="mx-auto -mt-px text-lg" />
+                          )}
                         </div>
                       ) : null}
                       {row.server ? (
@@ -241,6 +245,10 @@ export function Home() {
                     <div className="px-2">
                       <p className="font-medium text-center truncate group-hover:underline">
                         {row.name}
+                        <span className="text-gray-300 text-sm font-normal">
+                          {" "}
+                          by {row.author}
+                        </span>
                       </p>
                       <p className="text-sm truncate">
                         <span className="text-gray-400">
@@ -254,19 +262,6 @@ export function Home() {
                         ) : null}
                       </p>
                     </div>
-                    {row.tags.length === 0 ? null : (
-                      <div className="flex flex-nowrap gap-1 overflow-x-auto mt-1 px-2">
-                        {row.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="shrink-0 text-sm bg-slate-700 px-1 rounded"
-                          >
-                            {/* @ts-expect-error */}
-                            {tagNames[tag] ?? tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                   </div>
                 </button>
               ))}
