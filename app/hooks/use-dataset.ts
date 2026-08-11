@@ -3,6 +3,8 @@ import { getStoredDataset, putStoredDataset } from "../utils/storage";
 import type { TableRow } from "../utils/types";
 
 type DatasetState =
+  // default state (not idle) to avoid race condition
+  | { status: "checking" }
   | { status: "idle" }
   | { status: "loading" }
   | { status: "ready"; rows: TableRow[] }
@@ -24,7 +26,7 @@ async function fetchDataset(): Promise<{ rows: TableRow[]; hash: string }> {
 }
 
 export function useDataset() {
-  const [state, setState] = useState<DatasetState>({ status: "idle" });
+  const [state, setState] = useState<DatasetState>({ status: "checking" });
 
   const load = useCallback(async () => {
     setState({ status: "loading" });
