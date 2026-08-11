@@ -74,6 +74,7 @@ for (const row of file.Lowadi) {
     retired_in: row.retired_in ? row.retired_in : undefined,
     horse_type: row.horse_type,
     breed_ref: row.breed_ref ? row.breed_ref : undefined,
+    uses: row.uses || undefined,
     uploaded: row.uploaded
       ? new Date(row.uploaded).toISOString().split("T")[0]
       : undefined,
