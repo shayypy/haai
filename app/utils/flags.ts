@@ -285,5 +285,432 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   win: "wind",
 };
 
+export const tagDescriptions = [
+  {
+    tag: "ab",
+    description: "Resembling angels or demons.",
+    group: "Appearance",
+  },
+  {
+    tag: "bt",
+    description: "The tail is overly long or otherwise prominent.",
+    group: "Appearance",
+  },
+  {
+    tag: "bw",
+    description:
+      "The wings are the main focus of the coat, or they’re oversized.",
+    group: "Appearance",
+  },
+  {
+    tag: "bp",
+    description: "There are paint, tattoos, or other markings on the horse.",
+    group: "Appearance",
+  },
+  {
+    tag: "braids",
+    description:
+      "The horse has braids, flowers, or other additions to its mane and tail.",
+    group: "Appearance",
+  },
+  {
+    tag: "ch",
+    description: "There are chains on the horse.",
+    group: "Appearance",
+  },
+  {
+    tag: "cl",
+    description:
+      "The horse is wearing clothes, a cape/robe, or any human accessories, such as headphones.",
+    group: "Appearance",
+  },
+  {
+    tag: "dr",
+    description: "Resembling an Asian or European dragon.",
+    group: "Appearance",
+  },
+  {
+    tag: "left",
+    description:
+      "The horse is facing left, or if its head is turned, the body is pointing towards the left.",
+    group: "Appearance",
+  },
+  {
+    tag: "right",
+    description:
+      "The horse is facing right, or if its head is turned, the body is pointing towards the right.",
+    group: "Appearance",
+  },
+  {
+    tag: "fy",
+    description: "The horse is a foal or appears young.",
+    group: "Appearance",
+  },
+  {
+    tag: "hair",
+    description: "The horse has an excess of mane, tail, or fluff.",
+    group: "Appearance",
+  },
+  {
+    tag: "jy",
+    description: "There is jewelry of any sort on the horse.",
+    group: "Appearance",
+  },
+  { tag: "mh", description: "Too many heads!", group: "Appearance" },
+  { tag: "ml", description: "Too many legs!", group: "Appearance" },
+  {
+    tag: "tack",
+    description:
+      "The horse is wearing tack or has human equipment, such as swords, other weapons, or armor.",
+    group: "Appearance",
+  },
+
+  { tag: "bay", description: "Bay or a vague brown.", group: "Color" },
+  {
+    tag: "black",
+    description: "Black or other dark coats.",
+    group: "Color",
+  },
+  {
+    tag: "red",
+    description: "Red/chestnut or a liver chestnut.",
+    group: "Color",
+  },
+  {
+    tag: "cream",
+    description: "Light-colored with pink skin, champagne-colored, etc.",
+    group: "Color",
+  },
+  {
+    tag: "dun",
+    description: "Dun or buckskin-colored, or black dun (grulla).",
+    group: "Color",
+  },
+  {
+    tag: "cfan",
+    description: "Any unrealistic colors.",
+    group: "Color",
+  },
+  {
+    tag: "gray",
+    description: "Dapple gray, light gray, etc.",
+    group: "Color",
+  },
+  {
+    tag: "leopard",
+    description: "Leopard appaloosa, spotted blanket, etc.",
+    group: "Color",
+  },
+  {
+    tag: "pangare",
+    description: "Any pangare-like colors, minimal sabino, or countershading.",
+    group: "Color",
+  },
+  {
+    tag: "pinto",
+    description: "Tobiano, overo, tovero, loud sabino.",
+    group: "Color",
+  },
+  { tag: "roan", description: "Roan colored.", group: "Color" },
+  {
+    tag: "seal",
+    description: "Seal bay or any dark bay.",
+    group: "Color",
+  },
+
+  {
+    tag: "afk",
+    description: "Anything from or inspired by the continent of Africa or the Middle East.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "ame",
+    description:
+      "Representing Native American cultures; feathers, war paint, etc.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "emb",
+    description: "Features country flags or national identifiers.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "jpn",
+    description: "Geishas, sakura trees, samurais, etc.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "myt",
+    description: "Inspired by any mythology or folklore.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "pir",
+    description:
+      "Anything relating to pirates. Eye patches, cutlasses, or parrots, perhaps.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "pri",
+    description:
+      "Dinosaurs, shamans, extinct creatures, or other prehistoric art.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+
+  {
+    tag: "afr",
+    description: "There are animals with the horse.",
+    group: "Features",
+  },
+  {
+    tag: "stars",
+    description:
+      "There are stars, dust, vague spots of light, lightning and visible forms of electricity, or other artifacts around the horse.",
+    group: "Features",
+  },
+  {
+    tag: "fla",
+    description: "There are flames of any color around the horse.",
+    group: "Features",
+  },
+  {
+    tag: "fs",
+    description: "Featuring food, candy, or drinks.",
+    group: "Features",
+  },
+  {
+    tag: "gs",
+    description: "The horse is in space or is modeled after a celestial body.",
+    group: "Features",
+  },
+  {
+    tag: "gil",
+    description: "Featuring melted or solid gold.",
+    group: "Features",
+  },
+  {
+    tag: "jcg",
+    description:
+      "There are gems on or around the horse, or the horse itself is modeled after a gemstone; will not be applied if the gems are embedded within a piece of jewelry.",
+    group: "Features",
+  },
+  {
+    tag: "mus",
+    description:
+      "The horse is playing a musical instrument or standing near one, or the coat represents a genre of music.",
+    group: "Features",
+  },
+  {
+    tag: "obb",
+    description:
+      "There is an object beside the horse or in its mouth or hooves.",
+    group: "Features",
+  },
+  {
+    tag: "obi",
+    description: "The horse is inside an object.",
+    group: "Features",
+  },
+  {
+    tag: "pg",
+    description:
+      "There are leaves, vines, trees, or anything green around or on the horse.",
+    group: "Features",
+  },
+  {
+    tag: "spo",
+    description:
+      "The horse is playing with or around items representing a certain sport.",
+    group: "Features",
+  },
+  {
+    tag: "rb",
+    description:
+      "For rainbow or multicolored horses, or rainbows around the horse.",
+    group: "Features",
+  },
+  {
+    tag: "swirl",
+    description:
+      "There is an abundance of swirls or spirals on or around the horse.",
+    group: "Features",
+  },
+
+  {
+    tag: "ann",
+    description: "Howrse anniversary creations.",
+    group: "Holidays",
+  },
+  {
+    tag: "nyd",
+    description: "Presents, garland, reindeer, Santa Claus, etc.",
+    group: "Holidays",
+  },
+  {
+    tag: "esp",
+    description:
+      "Eggs, rabbits, pastel colors, or anything with lambs or chicks.",
+    group: "Holidays",
+  },
+  {
+    tag: "spk",
+    description: "Anything involving Halloween, pumpkins, skeletons, etc.",
+    group: "Holidays",
+  },
+  {
+    tag: "val",
+    description:
+      "Hearts, chocolates, and anything that relates to Valentine’s Day.",
+    group: "Holidays",
+  },
+
+  {
+    tag: "buck",
+    description: "The horse is on its front or hind legs only.",
+    group: "Movement",
+  },
+  {
+    tag: "run",
+    description: "Galloping, cantering, or fast movement of any sort.",
+    group: "Movement",
+  },
+  {
+    tag: "drs",
+    description:
+      "Dressage movements or maneuvers. Will often be combined with the regular movement it is closest to, such as `trotting` or `walking`.",
+    group: "Movement",
+  },
+  {
+    tag: "aer",
+    description:
+      "The horse is flying, floating, swimming, or in the middle of a jump.",
+    group: "Movement",
+  },
+  {
+    tag: "ghd",
+    description: "Grazing, scratching, or anything where the head is lowered.",
+    group: "Movement",
+  },
+  {
+    tag: "jump",
+    description:
+      "The horse is beginning to, in the middle of, or landing a jump.",
+    group: "Movement",
+  },
+  {
+    tag: "lysi",
+    description: "Sitting, lying, rolling, etc.",
+    group: "Movement",
+  },
+  {
+    tag: "pos",
+    description:
+      "The horse is standing, but with a certain pose, such as a leg being raised, or bowing down. Will always be combined with the `standing` tag.",
+    group: "Movement",
+  },
+  {
+    tag: "st",
+    description: "The horse is standing still.",
+    group: "Movement",
+  },
+  { tag: "trot", description: "The horse is trotting.", group: "Movement" },
+  { tag: "walk", description: "The horse is walking.", group: "Movement" },
+
+  {
+    tag: "abs",
+    description:
+      "The horse does not resemble a horse or any other animals. This tag will be applied if the horse is supposed to be made out of an organic or inorganic material.",
+    group: "Styles",
+  },
+  {
+    tag: "anb",
+    description: "The horse resembles a bird.",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "ant",
+    description: "The horse resembles a fictional species of animal.",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "anf",
+    description:
+      "The horse resembles a fish or aquatic creature (includes aquatic mammals).",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "ani",
+    description:
+      "The horse resembles an insect, arachnid, or mollusc (land snails and slugs).",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "anm",
+    description: "The horse resembles a different mammal.",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "anr",
+    description: "The horse resembles a reptile or amphibian.",
+    group: "Styles/Animal type",
+  },
+  {
+    tag: "cute",
+    description: "The horse is drawn in a cartoonish or cute style.",
+    group: "Styles",
+  },
+  {
+    tag: "lig",
+    description:
+      "Used when light plays a significant role in the coat, such as one part of the horse being illuminated and the other being in shadow.",
+    group: "Styles",
+  },
+  {
+    tag: "pt",
+    description:
+      "The lines are not as distinct, the horse is slightly abstract without being inanimate, the colors are blended in a way resembling a painting, or the coat is in the style of a traditional drawing.",
+    group: "Styles",
+  },
+  {
+    tag: "rea",
+    description:
+      "Realistic coats, or anything not fitting into cartoonish or painting-type styles. ",
+    group: "Styles",
+  },
+  {
+    tag: "retro",
+    description: "Robots, neon lights, or other tech.",
+    group: "Styles",
+  },
+  {
+    tag: "sp",
+    description: "Clocks, steam engines, 19th century and sci-fi styling.",
+    group: "Styles",
+  },
+  {
+    tag: "tsp",
+    description: "Completely or partially see-through horses.",
+    group: "Styles",
+  },
+
+  {
+    tag: "sno",
+    description: "There is snow on or around the horse, or involving ice.",
+    group: "Weather",
+  },
+  {
+    tag: "wat",
+    description:
+      "The theme relates to water, e.g. a horse that resembles a fish, or there is water around the horse. This tag also applies if the liquid isn’t necessarily water.",
+    group: "Weather",
+  },
+  {
+    tag: "win",
+    description:
+      "Wind is blowing something around the horse, or its mane and tail.",
+    group: "Weather",
+  },
+];
+
 export const maxUses = [100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 export type MaxUses = (typeof maxUses)[number];

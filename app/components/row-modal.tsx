@@ -5,6 +5,7 @@ import {
   breedNames,
   colorNames,
   horseTypeNames,
+  tagDescriptions,
   tagNames,
 } from "~/utils/flags";
 import {
@@ -201,7 +202,20 @@ export function RowModal({
                 ) : null}
               </div>
               <div className="grow">
-                <Field label="Author">{row.author}</Field>
+                <Field label="Author">
+                  <button
+                    type="button"
+                    className="inline hover:underline"
+                    onClick={() => {
+                      update(
+                        { author: row.author, row: null },
+                        { resetPage: true },
+                      );
+                    }}
+                  >
+                    {row.author}
+                  </button>
+                </Field>
                 <Field label="Server">
                   {row.server ? (
                     <ServerWithFlag region={row.server} />
@@ -212,7 +226,6 @@ export function RowModal({
                 <Field label="Open in">
                   <div className="flex gap-2 items-center">
                     <select
-                      id=""
                       className={selectClass}
                       onChange={(e) => {
                         window.open(
@@ -327,6 +340,37 @@ export function RowModal({
               </div>
             </div>
             <Field label="ID">{row.id}</Field>
+            {row.tags.length !== 0 ? (
+              <div className="mt-3 rounded-lg bg-slate-800 border border-slate-100/10 px-2.5 py-1.5">
+                <p className="text-sm font-medium">Tag Definitions</p>
+                <ul className="text-sm space-y-1 mt-1">
+                  {row.tags.map((tag) => {
+                    const desc = tagDescriptions.find((d) => d.tag === tag);
+                    return (
+                      <li key={tag} className="border-t border-slate-100/20 pt-1">
+                        <span className="font-semibold">
+                          {/* @ts-expect-error */}
+                          {tagNames[tag] ?? tag}:{" "}
+                        </span>
+                        {desc ? (
+                          <>
+                            <span>{desc.description}</span>
+                            <span className="text-gray-400">
+                              {" "}
+                              ({desc.group})
+                            </span>
+                          </>
+                        ) : (
+                          <span className="italic text-gray-400">
+                            No description available
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ) : null}
           </dl>
         ) : (
           <p className="mt-3 text-gray-400">

@@ -18,14 +18,14 @@ import { filterRows, sortRows } from "../utils/filter-rows";
 
 const defaultWidth = 128;
 
-function Cell({
+export function Cell({
   title,
   children,
   width,
   className,
 }: {
   title?: boolean;
-  width?: number;
+  width?: number | string;
   className?: string;
 } & React.PropsWithChildren) {
   const base = twMerge(
@@ -38,7 +38,9 @@ function Cell({
   return (
     <div
       className="relative shrink-0 group"
-      style={{ width: `${width ?? defaultWidth}px` }}
+      style={{
+        width: typeof width === "string" ? width : `${width ?? defaultWidth}px`,
+      }}
     >
       <div className={twMerge(base, "truncate max-h-8 overflow-hidden")}>
         {children}
@@ -202,6 +204,13 @@ export function Home() {
             >
               Stats
             </Link>{" "}
+            •{" "}
+            <Link
+              to="/tags"
+              className="text-sm hover:text-gray-200 hover:underline"
+            >
+              Tags
+            </Link>
           </div>
         </div>
       </div>

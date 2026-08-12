@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router";
 import { Home } from "./routes/home";
 import { NotFound } from "./routes/not-found";
+import { TagsPage } from "./routes/tags";
 
 const StatsPage = lazy(() => import("./routes/stats"));
 
@@ -17,6 +18,7 @@ export function App() {
           </Suspense>
         }
       />
+      <Route path="tags" element={<TagsPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
