@@ -134,6 +134,34 @@ export const colorNames: Record<keyof typeof ColorFlags, string> = {
   r: "red",
 };
 
+// pie chart slice colors
+export const colorColors: Record<keyof typeof ColorFlags, string> = {
+  b: "#6b7280",
+  l: "#0ea5e9",
+  n: "#854d0e",
+  e: "#84cc16",
+  g: "#a1a1aa",
+  y: "#fcd34d",
+  p: "#f472b6",
+  u: "#a855f7",
+  w: "#fff",
+  r: "#f43f5e",
+};
+
+// this was gonna be for us to color the tags in the table view but i couldn't get it to look right
+// export const colorColorsBg: Record<keyof typeof ColorFlags, string> = {
+//   b: "#0f172a",
+//   l: "#0ea5e9",
+//   n: "#854d0e",
+//   e: "#84cc16",
+//   g: "#374151",
+//   y: "#ca8a04",
+//   p: "#f472b6",
+//   u: "#581c87",
+//   w: "#e5e7eb",
+//   r: "#991b1b",
+// };
+
 export const horseTypeNames: Record<string, string> = {
   dok: "Donkey",
   dkp: "Donkey pegasus",
@@ -173,7 +201,7 @@ export const breedNames: Record<string, string> = {
 };
 
 export const tagNames: Record<keyof typeof TagsFlags, string> = {
-  ab: "above/below",
+  ab: "angel/demon",
   bt: "big tail",
   bw: "big wings",
   bp: "body paint",
@@ -186,8 +214,8 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   fy: "foal",
   hair: "hairy",
   jy: "jewelry",
-  mh: "multi-heads",
-  ml: "multi-legs",
+  mh: "multiple heads",
+  ml: "multiple legs",
   tack: "tack",
   bay: "bay",
   black: "black",
@@ -201,7 +229,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   pinto: "pinto",
   roan: "roan",
   seal: "seal bay",
-  afk: "africa",
+  afk: "africa-arabia",
   ame: "america",
   emb: "emblems",
   jpn: "japan",
@@ -251,7 +279,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   rea: "realistic",
   retro: "retro",
   sp: "steampunk",
-  tsp: "transparent",
+  tsp: "transluscent",
   sno: "snow",
   wat: "water",
   win: "wind",

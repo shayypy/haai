@@ -12,6 +12,7 @@ export type limit = (typeof PAGE_SIZES)[number];
 
 export interface ViewState {
   q: string;
+  author: string;
   server: string | null;
   retired: TriState;
   helios: TriState;
@@ -30,6 +31,7 @@ export interface ViewState {
 
 const defaultViewState: ViewState = {
   q: "",
+  author: "",
   server: null,
   retired: "any",
   helios: "any",
@@ -69,6 +71,49 @@ const parselimit = (value: string | null): limit => {
 const parseList = (value: string | null): string[] =>
   value ? value.split(",").filter(Boolean) : [];
 
+const applyViewState = (params: URLSearchParams, merged: ViewState) => {
+  const write = (key: string, value: string | null) => {
+    if (value === null || value === "") params.delete(key);
+    else params.set(key, value);
+  };
+
+  write("q", merged.q || null);
+  write("author", merged.author || null);
+  write("server", merged.server);
+  write("retired", merged.retired === "any" ? null : merged.retired);
+  write("helios", merged.helios === "any" ? null : merged.helios);
+  write(
+    "horse_type",
+    merged.horse_type === null ? null : String(merged.horse_type),
+  );
+  write(
+    "breed_ref",
+    merged.breed_ref === null ? null : String(merged.breed_ref),
+  );
+  write("uses", merged.uses === null ? null : String(merged.uses));
+  write("colors", merged.colors.length ? merged.colors.join(",") : null);
+  write("tags", merged.tags.length ? merged.tags.join(",") : null);
+  write("sort", merged.sort);
+  write("dir", merged.dir === "asc" ? null : merged.dir);
+  write("page", merged.page > 1 ? String(merged.page) : null);
+  write("limit", merged.limit !== 50 ? String(merged.limit) : null);
+  write("row", merged.row !== null ? String(merged.row) : null);
+  write("layout", merged.layout === "table" ? null : merged.layout);
+};
+
+/**
+ * Build the query params for a fresh view (e.g. linking to `/` from another
+ * route) without depending on `useSearchParams()`, which is bound to
+ * whatever route it's called from.
+ */
+export function serializeViewState(
+  partial: Partial<ViewState>,
+): URLSearchParams {
+  const params = new URLSearchParams();
+  applyViewState(params, { ...defaultViewState, ...partial });
+  return params;
+}
+
 export function useViewState() {
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -78,6 +123,7 @@ export function useViewState() {
     const uses = Number(searchParams.get("uses"));
     return {
       q: searchParams.get("q") ?? "",
+      author: searchParams.get("author") ?? "",
       server: searchParams.get("server"),
       retired: parseTriState(searchParams.get("retired")),
       helios: parseTriState(searchParams.get("helios")),
@@ -113,35 +159,7 @@ export function useViewState() {
               : { ...view, ...partial };
           if (opts.resetPage) merged.page = 1;
 
-          const write = (key: string, value: string | null) => {
-            if (value === null || value === "") next.delete(key);
-            else next.set(key, value);
-          };
-
-          write("q", merged.q || null);
-          write("server", merged.server);
-          write("retired", merged.retired === "any" ? null : merged.retired);
-          write("helios", merged.helios === "any" ? null : merged.helios);
-          write(
-            "horse_type",
-            merged.horse_type === null ? null : String(merged.horse_type),
-          );
-          write(
-            "breed_ref",
-            merged.breed_ref === null ? null : String(merged.breed_ref),
-          );
-          write("uses", merged.uses === null ? null : String(merged.uses));
-          write(
-            "colors",
-            merged.colors.length ? merged.colors.join(",") : null,
-          );
-          write("tags", merged.tags.length ? merged.tags.join(",") : null);
-          write("sort", merged.sort);
-          write("dir", merged.dir === "asc" ? null : merged.dir);
-          write("page", merged.page > 1 ? String(merged.page) : null);
-          write("limit", merged.limit !== 50 ? String(merged.limit) : null);
-          write("row", merged.row !== null ? String(merged.row) : null);
-          write("layout", merged.layout === "table" ? null : merged.layout);
+          applyViewState(next, merged);
 
           return next;
         },

@@ -2,7 +2,7 @@ import { mkdir, readdir } from "node:fs/promises";
 import path from "node:path";
 import { $ } from "bun";
 import { ColorFlags, RowFlags, TagsFlags } from "~/utils/flags";
-import type { TableRow } from "~/utils/types";
+import type { StatsFile, TableRow } from "~/utils/types";
 
 type StringBoolean = "TRUE" | "FALSE";
 
@@ -40,6 +40,17 @@ const separate = (string: string, splitter = ",") =>
   string.split(splitter).map((sub) => sub.trim());
 
 const reconstructed: TableRow[] = [];
+const stats: StatsFile = {
+  usage: {
+    colors: {},
+    tags: {},
+    servers: {},
+  },
+  newest_authors: [],
+  prolific_authors: [],
+  months: [],
+};
+
 for (const row of file.Lowadi) {
   let flags = 0;
   if (row.helios_ray === "TRUE") flags |= RowFlags.HeliosRay;
@@ -81,6 +92,64 @@ for (const row of file.Lowadi) {
     archived: new Date(`${row.created_time} UTC`).toISOString().split("T")[0],
   };
   reconstructed.push(newRow);
+
+  if (row.colors) {
+    for (const color of separate(row.colors)) {
+      stats.usage.colors[color] = (stats.usage.colors[color] ?? 0) + 1;
+    }
+  }
+  if (row.tags) {
+    for (const tag of separate(row.tags)) {
+      stats.usage.tags[tag] = (stats.usage.tags[tag] ?? 0) + 1;
+    }
+  }
+  if (row.server) {
+    stats.usage.servers[row.server] =
+      (stats.usage.servers[row.server] ?? 0) + 1;
+  }
+  if (row.uploaded) {
+    const date = new Date(row.uploaded);
+    const extant = stats.months.find(
+      (m) => m.year === date.getUTCFullYear() && m.month === date.getUTCMonth(),
+    );
+    if (extant) {
+      extant.apples += 1;
+    } else {
+      stats.months.push({
+        year: date.getUTCFullYear(),
+        month: date.getUTCMonth(),
+        apples: 1,
+      });
+    }
+  }
+  if (row.author) {
+    const extant = stats.prolific_authors.find((m) => m.name === row.author);
+    if (extant) {
+      extant.apples += 1;
+    } else {
+      stats.prolific_authors.push({ name: row.author, apples: 1 });
+    }
+
+    if (row.uploaded) {
+      const date = new Date(row.uploaded);
+      const extantRecent = stats.newest_authors.find(
+        (m) => m.name === row.author,
+      );
+      if (extantRecent) {
+        extantRecent.apples += 1;
+        const parsed = new Date(extantRecent.first_seen);
+        if (date.getTime() < parsed.getTime()) {
+          extantRecent.first_seen = date.toISOString();
+        }
+      } else {
+        stats.newest_authors.push({
+          name: row.author,
+          first_seen: date.toISOString(),
+          apples: 1,
+        });
+      }
+    }
+  }
 }
 
 // preview for dev
@@ -128,3 +197,21 @@ Bun.file("./public/hash.txt").write(
   new Bun.MD5().update(finalData).digest("hex"),
 );
 console.log(`Saved ${reconstructed.length} rows`);
+
+const now = Date.now();
+stats.newest_authors.sort(
+  (a, b) => new Date(b.first_seen).getTime() - new Date(a.first_seen).getTime(),
+);
+stats.newest_authors = stats.newest_authors
+  .filter(
+    // only authors newer than 1 month
+    (a) => now - new Date(a.first_seen).getTime() < 86_400_000 * 30,
+  )
+  .map((a) => ({ ...a, first_seen: a.first_seen.split("T")[0] }));
+stats.prolific_authors = stats.prolific_authors
+  .filter((a) => a.apples > 1)
+  .sort((a, b) => b.apples - a.apples)
+  .slice(0, 100);
+
+Bun.file("./public/stats.json").write(JSON.stringify(stats));
+console.log("Saved stats file");

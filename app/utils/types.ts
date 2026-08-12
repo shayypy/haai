@@ -16,3 +16,14 @@ export interface TableRow {
   /** row creation date - yyyy-mm-dd */
   archived: string;
 }
+
+export interface StatsFile {
+  usage: {
+    colors: Record<string, number>;
+    tags: Record<string, number>;
+    servers: Record<string, number>;
+  };
+  newest_authors: { name: string; first_seen: string; apples: number }[];
+  prolific_authors: { name: string; apples: number }[];
+  months: { month: number; year: number; apples: number }[];
+}

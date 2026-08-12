@@ -6,6 +6,7 @@ export function filterRows(
   view: Pick<
     ViewState,
     | "q"
+    | "author"
     | "server"
     | "retired"
     | "horse_type"
@@ -26,6 +27,7 @@ export function filterRows(
     ) {
       return false;
     }
+    if (view.author && row.author !== view.author) return false;
     if (view.server && row.server !== view.server) return false;
     if (view.retired !== "any" && row.retired !== (view.retired === "yes")) {
       return false;

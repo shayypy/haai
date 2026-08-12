@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useReducer } from "react";
 import { FaBed, FaSun } from "react-icons/fa6";
+import { Link } from "react-router";
 import { twMerge } from "tailwind-merge";
 import {
   breedNames,
@@ -184,13 +185,25 @@ export function Home() {
   return (
     <div className="py-6">
       <div className="max-w-4xl mx-auto px-6">
-        <p className="font-semibold text-xl">
-          HAAI{" "}
-          <span className="text-gray-400 ms-2">
-            Howrse Alternate Apple Index
-          </span>
-        </p>
-        <p className="text-gray-200 mt-1">blah blah blurb</p>
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="font-semibold text-xl">
+              HAAI{" "}
+              <span className="text-gray-400 ms-2">
+                Howrse Alternate Apple Index
+              </span>
+            </p>
+            <p className="text-gray-200 mt-1">blah blah blurb</p>
+          </div>
+          <div className="text-gray-400">
+            <Link
+              to="/stats"
+              className="text-sm hover:text-gray-200 hover:underline"
+            >
+              Stats
+            </Link>{" "}
+          </div>
+        </div>
       </div>
       {dataset.status === "ready" ? (
         <div className="mt-4 max-w-fit mx-auto px-6">
@@ -342,7 +355,7 @@ export function Home() {
                           <button
                             type="button"
                             onClick={() =>
-                              update({ q: row.author }, { replace: false })
+                              update({ author: row.author }, { replace: false })
                             }
                             className="text-left w-full truncate hover:underline underline-offset-2"
                           >
