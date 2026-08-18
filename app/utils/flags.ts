@@ -203,6 +203,7 @@ export const breedNames: Record<string, string> = {
   tb: "Thoroughbred",
   tr: "Trotter",
   wb: "Warmblood",
+  knb: "Knabstrupper",
 };
 
 export const tagNames: Record<keyof typeof TagsFlags, string> = {
