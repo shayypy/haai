@@ -100,6 +100,8 @@ export const TagsFlags = {
   sno: 1n << 79n,
   wat: 1n << 80n,
   win: 1n << 81n,
+  mag: 1n << 82n,
+  mwi: 1n << 83n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -216,6 +218,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   jy: "jewelry",
   mh: "multiple heads",
   ml: "multiple legs",
+  mwi: "multiple wings",
   tack: "tack",
   bay: "bay",
   black: "black",
@@ -244,6 +247,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   gil: "gilded",
   jcg: "gems",
   mus: "music",
+  mag: "magic",
   obb: "beside object",
   obi: "inside object",
   pg: "plants",
@@ -358,6 +362,7 @@ export const tagDescriptions = [
   },
   { tag: "mh", description: "Too many heads!", group: "Appearance" },
   { tag: "ml", description: "Too many legs!", group: "Appearance" },
+  { tag: "mwi", description: "Too many wings!", group: "Appearance" },
   {
     tag: "tack",
     description:
@@ -420,7 +425,8 @@ export const tagDescriptions = [
 
   {
     tag: "afk",
-    description: "Anything from or inspired by the continent of Africa or the Middle East.",
+    description:
+      "Anything from or inspired by the continent of Africa or the Middle East.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
@@ -498,6 +504,11 @@ export const tagDescriptions = [
     tag: "mus",
     description:
       "The horse is playing a musical instrument or standing near one, or the coat represents a genre of music.",
+    group: "Features",
+  },
+  {
+    tag: "mag",
+    description: "Classic magical elements, like cards, top hats, rabbits, or wands.",
     group: "Features",
   },
   {
