@@ -102,6 +102,9 @@ export const TagsFlags = {
   win: 1n << 81n,
   mag: 1n << 82n,
   mwi: 1n << 83n,
+  aus: 1n << 84n,
+  ton: 1n << 85n,
+  bow: 1n << 86n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -287,6 +290,9 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   sno: "snow",
   wat: "water",
   win: "wind",
+  aus: "australia",
+  ton: "tongue",
+  bow: "bowing",
 };
 
 export const tagDescriptions = [
@@ -358,6 +364,11 @@ export const tagDescriptions = [
   {
     tag: "jy",
     description: "There is jewelry of any sort on the horse.",
+    group: "Appearance",
+  },
+  {
+    tag: "ton",
+    description: "The horse is sticking its tongue out.",
     group: "Appearance",
   },
   { tag: "mh", description: "Too many heads!", group: "Appearance" },
@@ -462,6 +473,12 @@ export const tagDescriptions = [
       "Dinosaurs, shamans, extinct creatures, or other prehistoric art.",
     group: "Countries, Cultures, or Time Periods",
   },
+  {
+    tag: "aus",
+    description:
+      "Resembling or featuring animals from Australia or Australian culture.",
+    group: "Countries, Cultures, or Time Periods",
+  },
 
   {
     tag: "afr",
@@ -508,7 +525,8 @@ export const tagDescriptions = [
   },
   {
     tag: "mag",
-    description: "Classic magical elements, like cards, top hats, rabbits, or wands.",
+    description:
+      "Classic magical elements, like cards, top hats, rabbits, or wands.",
     group: "Features",
   },
   {
@@ -626,6 +644,7 @@ export const tagDescriptions = [
   },
   { tag: "trot", description: "The horse is trotting.", group: "Movement" },
   { tag: "walk", description: "The horse is walking.", group: "Movement" },
+  { tag: "bow", description: "The horse is in a bow.", group: "Movement" },
 
   {
     tag: "abs",
