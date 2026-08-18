@@ -1,4 +1,6 @@
+import transliterate from "@sindresorhus/transliterate";
 import type { SortDir, SortField, ViewState } from "../hooks/use-view-state";
+import { fancyToPlain } from "./fonts";
 import type { ParsedRow } from "./rows";
 
 export function filterRows(
@@ -20,10 +22,17 @@ export function filterRows(
   const q = view.q.trim().toLowerCase();
 
   return rows.filter((row) => {
+    const nameLower = row.name.toLowerCase();
+    const authorLower = row.author.toLowerCase();
+    const namePlain = fancyToPlain(row.name).toLowerCase();
+    const nameTranslit = transliterate(row.name).toLowerCase();
+
     if (
       q &&
-      !row.name.toLowerCase().includes(q) &&
-      !row.author.toLowerCase().includes(q)
+      !nameLower.includes(q) &&
+      !authorLower.includes(q) &&
+      !namePlain.includes(q) &&
+      !nameTranslit.includes(q)
     ) {
       return false;
     }
