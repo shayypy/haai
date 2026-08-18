@@ -1,4 +1,4 @@
-import { mkdir, readdir } from "node:fs/promises";
+import { mkdir, readdir, rm } from "node:fs/promises";
 import path from "node:path";
 import { $ } from "bun";
 import { ColorFlags, RowFlags, TagsFlags } from "~/utils/flags";
@@ -93,6 +93,13 @@ for (const row of file.Lowadi) {
   };
   reconstructed.push(newRow);
 
+  const imageIdMatch = row.image_url.match(/(\d+)-normal\.png$/);
+  if (imageIdMatch?.[1] && Number(imageIdMatch[1]) !== row.id) {
+    console.log(
+      `WARNING: Row ${row.id} doesn't match its URL: ${imageIdMatch[1]}`,
+    );
+  }
+
   if (row.colors) {
     for (const color of separate(row.colors)) {
       stats.usage.colors[color] = (stats.usage.colors[color] ?? 0) + 1;
@@ -152,8 +159,21 @@ for (const row of file.Lowadi) {
   }
 }
 
-// preview for dev
-// console.log(reconstructed.slice(0, 5));
+const excessImages = extantImages.filter((filename) => {
+  const id = Number(filename.replace(".webp", ""));
+  return reconstructed.find((r) => r.id === id) === undefined;
+});
+if (excessImages.length !== 0) {
+  console.log(`Found ${excessImages.length} saved IDs no longer in dataset`);
+  for (const filename of excessImages) {
+    try {
+      await rm(path.join(imagesPath, filename));
+      console.log(`- Deleted ${filename}`);
+    } catch {
+      console.log(`- Failed to delete ${filename}`);
+    }
+  }
+}
 
 if (hasFFmpeg) {
   let streakFailures = 0;
