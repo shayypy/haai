@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { GrClear } from "react-icons/gr";
 import { twMerge } from "tailwind-merge";
 import {
@@ -62,6 +63,14 @@ export function FilterBar({
   const end = Math.min(view.page * view.limit, total);
   const totalPages = Math.max(1, Math.ceil(total / view.limit));
 
+  // Temporary value for controlling the input so that input is not
+  // overwritten while typing
+  const [qValue, setQValue] = useState(view.q);
+  useEffect(() => {
+    const timeout = setTimeout(() => setQValue(view.q), 500);
+    return () => clearTimeout(timeout);
+  }, [view.q]);
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-2">
       <p className="text-sm text-gray-400">
@@ -70,8 +79,11 @@ export function FilterBar({
       <div className="flex flex-wrap items-center gap-1.5">
         <input
           type="text"
-          value={view.q}
-          onChange={(e) => update({ q: e.target.value }, { resetPage: true })}
+          value={qValue}
+          onChange={(e) => {
+            setQValue(e.target.value);
+            update({ q: e.target.value }, { resetPage: true });
+          }}
           placeholder="Search name / author…"
           className={twMerge(selectClass, "w-40")}
         />
