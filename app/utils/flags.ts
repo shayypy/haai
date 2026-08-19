@@ -105,6 +105,8 @@ export const TagsFlags = {
   aus: 1n << 84n,
   ton: 1n << 85n,
   bow: 1n << 86n,
+  how: 1n << 87n,
+  roy: 1n << 88n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -294,6 +296,8 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   aus: "australia",
   ton: "tongue",
   bow: "bowing",
+  how: "howrse",
+  roy: "royalty",
 };
 
 export const tagDescriptions = [
@@ -365,6 +369,11 @@ export const tagDescriptions = [
   {
     tag: "jy",
     description: "There is jewelry of any sort on the horse.",
+    group: "Appearance",
+  },
+  {
+    tag: "roy",
+    description: "Featuring items associated with royalty.",
     group: "Appearance",
   },
   {
@@ -563,6 +572,11 @@ export const tagDescriptions = [
     tag: "swirl",
     description:
       "There is an abundance of swirls or spirals on or around the horse.",
+    group: "Features",
+  },
+  {
+    tag: "how",
+    description: "Referencing Howrse in some way.",
     group: "Features",
   },
 
