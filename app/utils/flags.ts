@@ -378,7 +378,7 @@ export const tagDescriptions = [
   },
   {
     tag: "ton",
-    description: "The horse is sticking its tongue out.",
+    description: "The horse's mouth is open, or it's sticking its tongue out.",
     group: "Appearance",
   },
   { tag: "mh", description: "Too many heads!", group: "Appearance" },

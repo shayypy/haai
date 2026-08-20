@@ -76,9 +76,8 @@ function DatasetStatus({
             Load Table
           </button>
           <p className="text-gray-200">
-            This will load the dataset (a few MBs) into your browser. Then, you
-            can save this site as a progressive web app (PWA) to view it
-            offline.
+            This will load the dataset (a few MBs) into your browser. It will
+            not be downloaded again unless it changes.
           </p>
         </div>
       );
