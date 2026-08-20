@@ -27,6 +27,8 @@ export interface ViewState {
   limit: limit;
   row: number | null;
   layout: ViewLayout;
+  uploaded_from: string | null;
+  uploaded_to: string | null;
 }
 
 const defaultViewState: ViewState = {
@@ -46,6 +48,8 @@ const defaultViewState: ViewState = {
   limit: 50,
   row: null,
   layout: "table",
+  uploaded_from: null,
+  uploaded_to: null,
 };
 
 const TRI_STATES: TriState[] = ["any", "yes", "no"];
@@ -99,6 +103,8 @@ const applyViewState = (params: URLSearchParams, merged: ViewState) => {
   write("limit", merged.limit !== 50 ? String(merged.limit) : null);
   write("row", merged.row !== null ? String(merged.row) : null);
   write("layout", merged.layout === "table" ? null : merged.layout);
+  write("uploaded_from", merged.uploaded_from);
+  write("uploaded_to", merged.uploaded_to);
 };
 
 /**
@@ -138,6 +144,8 @@ export function useViewState() {
       limit: parselimit(searchParams.get("limit")),
       row: searchParams.has("row") && Number.isFinite(row) ? row : null,
       layout: searchParams.get("layout") === "gallery" ? "gallery" : "table",
+      uploaded_from: searchParams.get("uploaded_from"),
+      uploaded_to: searchParams.get("uploaded_to"),
     };
   }, [searchParams]);
 

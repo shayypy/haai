@@ -1,6 +1,7 @@
 import transliterate from "@sindresorhus/transliterate";
 import type { SortDir, SortField, ViewState } from "../hooks/use-view-state";
 import { fancyToPlain } from "./fonts";
+import { parseYearMonth, yearMonthEndExclusive, yearMonthStart } from "./month";
 import type { ParsedRow } from "./rows";
 
 export function filterRows(
@@ -17,6 +18,8 @@ export function filterRows(
     | "helios"
     | "colors"
     | "tags"
+    | "uploaded_from"
+    | "uploaded_to"
   >,
 ): ParsedRow[] {
   const q = view.q.trim().toLowerCase();
@@ -60,6 +63,20 @@ export function filterRows(
       return false;
     }
     if (view.tags.length && !view.tags.every((t) => row.tags.includes(t))) {
+      return false;
+    }
+    const uploadedFrom = parseYearMonth(view.uploaded_from);
+    if (
+      uploadedFrom &&
+      (!row.uploaded || row.uploaded < yearMonthStart(uploadedFrom))
+    ) {
+      return false;
+    }
+    const uploadedTo = parseYearMonth(view.uploaded_to);
+    if (
+      uploadedTo &&
+      (!row.uploaded || row.uploaded >= yearMonthEndExclusive(uploadedTo))
+    ) {
       return false;
     }
     return true;

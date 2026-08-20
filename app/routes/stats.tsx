@@ -259,12 +259,18 @@ export default function StatsPage() {
                     <Bar
                       dataKey="apples"
                       fill="#38bdf8"
-                      className={
-                        typeof timeGraph === "number" ? "" : "cursor-pointer"
-                      }
+                      className="cursor-pointer"
                       onClick={(e) => {
                         if ("year" in e && !("month" in e)) {
                           setTimeGraph(e.year as number);
+                        } else if ("month" in e) {
+                          const m = ((e.month as number) + 1)
+                            .toString()
+                            .padStart(2, "0");
+                          goFiltered({
+                            uploaded_from: `${timeGraph}-${m}`,
+                            uploaded_to: `${timeGraph}-${m}`,
+                          });
                         }
                       }}
                     />

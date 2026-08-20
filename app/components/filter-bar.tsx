@@ -12,6 +12,7 @@ import {
 import { getServerName, regionToEmoji, serverDomains } from "~/utils/text";
 import type { SortField, TriState, ViewState } from "../hooks/use-view-state";
 import { PAGE_SIZES } from "../hooks/use-view-state";
+import { MonthRangePicker } from "./month-range-picker";
 import { MultiSelect } from "./multi-select";
 
 const SORT_OPTIONS: { value: SortField; label: string }[] = [
@@ -221,6 +222,14 @@ export function FilterBar({
           options={tagOptions}
           selected={view.tags}
           onChange={(tags) => update({ tags }, { resetPage: true })}
+        />
+
+        <MonthRangePicker
+          from={view.uploaded_from}
+          to={view.uploaded_to}
+          onChange={(uploaded_from, uploaded_to) =>
+            update({ uploaded_from, uploaded_to }, { resetPage: true })
+          }
         />
 
         <select
