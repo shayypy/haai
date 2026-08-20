@@ -269,7 +269,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   run: "running",
   drs: "dressage",
   aer: "aerial",
-  ghd: "grazing",
+  ghd: "low head",
   jump: "jumping",
   lysi: "sitting",
   pos: "posing",
