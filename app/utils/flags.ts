@@ -198,6 +198,7 @@ export const breedNames: Record<string, string> = {
   haf: "Haflinger",
   hd: "Heavy Draft",
   ic: "Irish Cob",
+  knb: "Knabstrupper",
   ld: "Light Draft",
   mw: "Marwari",
   nor: "Nordics",
@@ -205,7 +206,6 @@ export const breedNames: Record<string, string> = {
   tb: "Thoroughbred",
   tr: "Trotter",
   wb: "Warmblood",
-  knb: "Knabstrupper",
 };
 
 export const tagNames: Record<keyof typeof TagsFlags, string> = {
