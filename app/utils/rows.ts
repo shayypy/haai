@@ -42,7 +42,7 @@ export const processRow = (row: TableRow): ParsedRow => {
     retired_in: row.retired_in,
     horse_type: row.horse_type,
     breed_ref: row.breed_ref,
-    uploaded: row.uploaded ? new Date(row.uploaded) : undefined,
-    archived: new Date(row.archived),
+    uploaded: row.uploaded ? new Date(`${row.uploaded}T00:00`) : undefined,
+    archived: new Date(`${row.archived}T00:00`),
   };
 };
