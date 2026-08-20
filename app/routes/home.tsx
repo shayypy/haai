@@ -194,7 +194,9 @@ export function Home() {
                 Howrse Alternate Apple Index
               </span>
             </p>
-            <p className="text-gray-200 mt-1">blah blah blurb</p>
+            <p className="text-gray-200 mt-1">
+              A community-maintained index for searching custom Howrse coats
+            </p>
           </div>
           <div className="text-gray-400">
             <Link
