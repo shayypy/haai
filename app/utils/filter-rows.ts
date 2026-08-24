@@ -30,6 +30,10 @@ export function filterRows(
     const namePlain = fancyToPlain(row.name).toLowerCase();
     const nameTranslit = transliterate(row.name).toLowerCase();
 
+    // include ID match in results
+    if (q && /^\d+$/.test(q) && String(row.id) === q) {
+      return true;
+    }
     if (
       q &&
       !nameLower.includes(q) &&
