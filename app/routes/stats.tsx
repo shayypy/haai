@@ -81,31 +81,58 @@ export default function StatsPage() {
   const timeGraphData = useMemo(() => {
     if (stats) {
       if (timeGraph === "year") {
-        const years: { year: number; label: string; apples: number }[] = [];
+        const years: {
+          year: number;
+          label: string;
+          apples: number;
+          total: number;
+          diff: number;
+        }[] = [];
         for (const month of stats.months) {
+          const yearMonths = stats.months.filter((m) => m.year === month.year);
+          const withTotalCount = yearMonths.filter(
+            (m) => m.total !== undefined,
+          ).length;
           const extant = years.find((y) => y.year === month.year);
-          if (extant) extant.apples += month.apples;
-          else {
+          if (extant) {
+            extant.apples += month.apples;
+            if (withTotalCount === yearMonths.length) {
+              extant.total += month.total ?? 0;
+            }
+          } else {
             years.push({
               label: String(month.year),
               year: month.year,
               apples: month.apples,
+              total:
+                withTotalCount === yearMonths.length ? (month.total ?? 0) : 0,
+              diff: 0,
             });
           }
         }
         years.sort((a, b) => a.year - b.year);
-        return years;
-      } else {
-        return new Array(12).fill(null).map((_, i) => ({
-          month: i,
-          year: timeGraph,
-          label: new Date(timeGraph, i).toLocaleString(undefined, {
-            month: "long",
-          }),
-          apples:
-            stats.months.find((m) => m.month === i && m.year === timeGraph)
-              ?.apples ?? 0,
+        return years.map((y) => ({
+          ...y,
+          diff: Math.max(y.total - y.apples, 0),
         }));
+      } else {
+        return new Array(12).fill(null).map((_, i) => {
+          const month = stats.months.find(
+            (m) => m.month === i && m.year === timeGraph,
+          );
+          const apples = month?.apples ?? 0;
+          const total = month?.total ?? 0;
+          return {
+            month: i,
+            year: timeGraph,
+            label: new Date(timeGraph, i).toLocaleString(undefined, {
+              month: "long",
+            }),
+            apples,
+            total,
+            diff: Math.max(total - apples, 0),
+          };
+        });
       }
     }
     return [];
@@ -214,9 +241,9 @@ export default function StatsPage() {
             </div>
 
             <div className="rounded-lg border border-slate-100/10 bg-slate-900 p-4">
-              <div className="flex mb-2 items-start gap-2">
+              <div className="flex mb-4 items-start gap-2">
                 <p className="font-medium">
-                  Uploads over time
+                  Archives by upload date
                   {typeof timeGraph === "number" ? ` (${timeGraph})` : ""}
                 </p>
                 {typeof timeGraph === "number" ? (
@@ -259,6 +286,7 @@ export default function StatsPage() {
                     <Bar
                       dataKey="apples"
                       fill="#38bdf8"
+                      stackId={typeof timeGraph === "number" ? "year" : "month"}
                       className="cursor-pointer"
                       onClick={(e) => {
                         if ("year" in e && !("month" in e)) {
@@ -273,6 +301,12 @@ export default function StatsPage() {
                           });
                         }
                       }}
+                    />
+                    <Bar
+                      dataKey="diff"
+                      fill="#b3dff2"
+                      name="not indexed"
+                      stackId={typeof timeGraph === "number" ? "year" : "month"}
                     />
                   </BarChart>
                 </ResponsiveContainer>

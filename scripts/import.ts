@@ -26,6 +26,14 @@ interface RawTableRow {
 
 const file = (await Bun.file(Bun.argv[2]).json()) as { Lowadi: RawTableRow[] };
 
+interface StaticFile {
+  uploads: Record<string, number[]>;
+}
+
+const staticFile = (await Bun.file(
+  path.join(".", "public", "static.json"),
+).json()) as StaticFile;
+
 const imagesPath = path.join(".", "public", "images");
 await mkdir(imagesPath, { recursive: true });
 let hasFFmpeg = false;
@@ -129,6 +137,27 @@ for (const row of file.Lowadi) {
       });
     }
   }
+  // add missing months if there is a total but no indexed data
+  for (const [year, totals] of Object.entries(staticFile.uploads)) {
+    let i = -1;
+    for (const monthTotal of totals) {
+      i += 1;
+      const extant = stats.months.find(
+        (m) => m.year === Number(year) && m.month === i,
+      );
+      if (extant) {
+        extant.total = monthTotal;
+      } else {
+        stats.months.push({
+          year: Number(year),
+          month: i,
+          apples: 0,
+          total: monthTotal,
+        });
+      }
+    }
+  }
+
   if (row.author) {
     const extant = stats.prolific_authors.find((m) => m.name === row.author);
     if (extant) {

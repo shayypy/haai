@@ -25,5 +25,5 @@ export interface StatsFile {
   };
   newest_authors: { name: string; first_seen: string; apples: number }[];
   prolific_authors: { name: string; apples: number }[];
-  months: { month: number; year: number; apples: number }[];
+  months: { month: number; year: number; apples: number; total?: number }[];
 }
