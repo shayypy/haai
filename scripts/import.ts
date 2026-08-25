@@ -48,6 +48,7 @@ const separate = (string: string, splitter = ",") =>
   string.split(splitter).map((sub) => sub.trim());
 
 const reconstructed: TableRow[] = [];
+const allIds: number[] = [];
 const stats: StatsFile = {
   usage: {
     colors: {},
@@ -60,6 +61,14 @@ const stats: StatsFile = {
 };
 
 for (const row of file.Lowadi) {
+  if (allIds.includes(row.id)) {
+    console.log(
+      `WARNING: ID ${row.id} has already appeared once; skipping this row`,
+    );
+    continue;
+  }
+  allIds.push(row.id);
+
   let flags = 0;
   if (row.helios_ray === "TRUE") flags |= RowFlags.HeliosRay;
   if (row.retired === "TRUE") flags |= RowFlags.Retired;
