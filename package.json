@@ -6,7 +6,8 @@
     "build": "vite build",
     "dev": "vite",
     "preview": "vite preview",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "import": "bun scripts/import.ts"
   },
   "dependencies": {
     "@sindresorhus/transliterate": "^2.3.1",
