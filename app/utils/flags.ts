@@ -107,6 +107,7 @@ export const TagsFlags = {
   bow: 1n << 86n,
   how: 1n << 87n,
   roy: 1n << 88n,
+  med: 1n << 89n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -241,9 +242,10 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   afk: "africa-arabia",
   ame: "america",
   emb: "emblems",
-  jpn: "japan",
+  jpn: "asia",
   myt: "mythos",
   pir: "pirates",
+  med: "medieval",
   pri: "primeval",
   afr: "animal friends",
   stars: "stars",
@@ -463,7 +465,7 @@ export const tagDescriptions = [
   },
   {
     tag: "jpn",
-    description: "Geishas, sakura trees, samurais, etc.",
+    description: "Anything relating to the countries or areas of Japan, China, or Korea.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
@@ -475,6 +477,11 @@ export const tagDescriptions = [
     tag: "pir",
     description:
       "Anything relating to pirates. Eye patches, cutlasses, or parrots, perhaps.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "med",
+    description: "Featuring medieval armor, banners, weaponry, etc.",
     group: "Countries, Cultures, or Time Periods",
   },
   {

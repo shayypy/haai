@@ -81,6 +81,7 @@ export const serverNames = {
   SI: "Slovenia",
   SK: "Slovakia",
   IL: "Israel",
+  AR: "Saudi Arabia",
 };
 
 const namesToRegions = Object.fromEntries(
