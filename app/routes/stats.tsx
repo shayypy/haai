@@ -138,6 +138,10 @@ export default function StatsPage() {
     return [];
   }, [stats, timeGraph]);
 
+  const totalUploaded =
+    stats?.months.reduce((prev, cur) => cur.apples + prev, 0) ?? 0;
+  const uploadedPct = totalUploaded / (stats?.total_apples ?? 1);
+
   const goFiltered = (partial: Partial<ViewState>) => {
     navigate(`/?${serializeViewState(partial).toString()}`);
   };
@@ -261,7 +265,7 @@ export default function StatsPage() {
                   width={Math.max(600, timeGraphData.length * BAR_WIDTH)}
                   height={320}
                 >
-                  <BarChart data={timeGraphData} margin={{ bottom: 60 }}>
+                  <BarChart data={timeGraphData} margin={{ bottom: 25 }}>
                     <CartesianGrid
                       strokeDasharray="3 3"
                       stroke="rgba(148,163,184,0.1)"
@@ -310,6 +314,79 @@ export default function StatsPage() {
                     />
                   </BarChart>
                 </ResponsiveContainer>
+              </div>
+              <p className="font-medium mb-4">
+                Archive progress ({Math.round(uploadedPct * 100)}%)
+              </p>
+              <div className="overflow-x-auto px-4 mb-2">
+                <div className="flex items-center gap-2">
+                  <div className="relative w-full h-4 bg-[#b3dff2]">
+                    <div
+                      className="absolute top-0 left-0 h-4 bg-[#38bdf8]"
+                      style={{ width: `${uploadedPct * 100}%` }}
+                    />
+                  </div>
+                </div>
+                <div className="relative w-full h-4">
+                  <p
+                    className="absolute text-xs text-[#94a3b8] shrink-0"
+                    style={{
+                      insetInlineStart: `calc(${uploadedPct * 100}% - 1.2rem)`,
+                    }}
+                  >
+                    {totalUploaded.toLocaleString()}
+                  </p>
+                  <p className="absolute text-xs text-[#94a3b8] shrink-0 inset-e-0">
+                    {stats.total_apples.toLocaleString()}
+                  </p>
+                </div>
+                {/* <ResponsiveContainer
+                  width={Math.max(600, timeGraphData.length * BAR_WIDTH)}
+                  height={120}
+                >
+                  <BarChart
+                    data={[
+                      {
+                        diff: stats.total_apples - totalUploaded,
+                        apples: totalUploaded,
+                        label: "Totals",
+                      },
+                    ]}
+                    margin={{ left: 23, bottom: 80 }}
+                    layout="vertical"
+                  >
+                    <CartesianGrid
+                      strokeDasharray="3 3"
+                      stroke="rgba(148,163,184,0.1)"
+                    />
+                    <XAxis
+                      type="number"
+                      tick={{ fill: "#94a3b8", fontSize: 11 }}
+                    />
+                    <YAxis
+                      type="category"
+                      height={BAR_WIDTH}
+                      dataKey="label"
+                      tick={{ fill: "#94a3b8", fontSize: 11 }}
+                    />
+                    <Tooltip
+                      contentStyle={{
+                        background: "#1e293b",
+                        border: "1px solid rgba(148,163,184,0.1)",
+                        borderRadius: 8,
+                        color: "#e2e8f0",
+                      }}
+                      itemStyle={{ color: "#e2e8f0" }}
+                    />
+                    <Bar dataKey="apples" fill="#38bdf8" stackId="apples" />
+                    <Bar
+                      dataKey="diff"
+                      fill="#b3dff2"
+                      name="not indexed"
+                      stackId="apples"
+                    />
+                  </BarChart>
+                </ResponsiveContainer> */}
               </div>
             </div>
           </div>

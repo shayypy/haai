@@ -27,6 +27,7 @@ interface RawTableRow {
 const file = (await Bun.file(Bun.argv[2]).json()) as { Lowadi: RawTableRow[] };
 
 interface StaticFile {
+  total: number;
   uploads: Record<string, number[]>;
 }
 
@@ -57,6 +58,7 @@ const stats: StatsFile = {
   },
   newest_authors: [],
   prolific_authors: [],
+  total_apples: staticFile.total,
   months: [],
 };
 
