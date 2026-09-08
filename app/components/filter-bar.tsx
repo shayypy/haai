@@ -9,7 +9,7 @@ import {
   maxUses,
   tagNames,
 } from "~/utils/flags";
-import { getServerName, regionToEmoji, serverDomains } from "~/utils/text";
+import { regionToEmoji, serverNames } from "~/utils/text";
 import type { SortField, TriState, ViewState } from "../hooks/use-view-state";
 import { PAGE_SIZES } from "../hooks/use-view-state";
 import { MonthRangePicker } from "./month-range-picker";
@@ -123,9 +123,9 @@ export function FilterBar({
           className={selectClass}
         >
           <option value="">All servers</option>
-          {Object.keys(serverDomains).map((s) => (
-            <option key={s} value={s}>
-              {regionToEmoji(s)} {getServerName(s)}
+          {Object.entries(serverNames).map(([code, name]) => (
+            <option key={code} value={code}>
+              {regionToEmoji(code)} {name}
             </option>
           ))}
         </select>
