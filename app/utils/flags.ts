@@ -108,6 +108,7 @@ export const TagsFlags = {
   how: 1n << 87n,
   roy: 1n << 88n,
   med: 1n << 89n,
+  bh: 1n << 90n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -213,6 +214,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   ab: "angel/demon",
   bt: "big tail",
   bw: "big wings",
+  bh: "big head",
   bp: "body paint",
   braids: "braids",
   ch: "chains",
@@ -317,6 +319,11 @@ export const tagDescriptions = [
     tag: "bw",
     description:
       "The wings are the main focus of the coat, or they’re oversized.",
+    group: "Appearance",
+  },
+  {
+    tag: "bh",
+    description: "The head is the main focus of the coat, or it's oversized.",
     group: "Appearance",
   },
   {
@@ -465,7 +472,8 @@ export const tagDescriptions = [
   },
   {
     tag: "jpn",
-    description: "Anything relating to the countries or areas of Japan, China, or Korea.",
+    description:
+      "Anything relating to the countries or areas of Japan, China, or Korea.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
