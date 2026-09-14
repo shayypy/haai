@@ -12,7 +12,6 @@ interface RawTableRow {
   server: string | null;
   colors: string | null;
   helios_ray: StringBoolean;
-  id: number;
   image_url: string;
   retired: StringBoolean;
   uses: number | "" | null;
@@ -49,7 +48,7 @@ const separate = (string: string, splitter = ",") =>
   string.split(splitter).map((sub) => sub.trim());
 
 const reconstructed: TableRow[] = [];
-const allIds: number[] = [];
+const allIds = new Set<number>();
 const stats: StatsFile = {
   usage: {
     colors: {},
@@ -63,13 +62,20 @@ const stats: StatsFile = {
 };
 
 for (const row of file.Lowadi) {
-  if (allIds.includes(row.id)) {
+  const idMatch = row.image_url.match(/(\d+)-normal\.png$/);
+  if (!idMatch?.[1]) {
+    console.log(`WARNING: Failed to match ID from URL ${row.image_url}`);
+    continue;
+  }
+  const id = Number(idMatch[1]);
+
+  if (allIds.has(id)) {
     console.log(
-      `WARNING: ID ${row.id} has already appeared once; skipping this row`,
+      `WARNING: ID ${id} has already appeared once; skipping this row`,
     );
     continue;
   }
-  allIds.push(row.id);
+  allIds.add(id);
 
   let flags = 0;
   if (row.helios_ray === "TRUE") flags |= RowFlags.HeliosRay;
@@ -93,7 +99,7 @@ for (const row of file.Lowadi) {
   }
 
   const newRow: TableRow = {
-    id: row.id,
+    id,
     name: row.name,
     author: row.author,
     server: row.server ? row.server : undefined,
@@ -111,13 +117,6 @@ for (const row of file.Lowadi) {
     archived: new Date(`${row.created_time} UTC`).toISOString().split("T")[0],
   };
   reconstructed.push(newRow);
-
-  const imageIdMatch = row.image_url.match(/(\d+)-normal\.png$/);
-  if (imageIdMatch?.[1] && Number(imageIdMatch[1]) !== row.id) {
-    console.log(
-      `WARNING: Row ${row.id} doesn't match its URL: ${imageIdMatch[1]}`,
-    );
-  }
 
   if (row.colors) {
     for (const color of separate(row.colors)) {
