@@ -109,6 +109,7 @@ export const TagsFlags = {
   roy: 1n << 88n,
   med: 1n << 89n,
   bh: 1n << 90n,
+  ind: 1n << 91n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -245,6 +246,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   ame: "america",
   emb: "emblems",
   jpn: "asia",
+  ind: "india",
   myt: "mythos",
   pir: "pirates",
   med: "medieval",
@@ -474,6 +476,12 @@ export const tagDescriptions = [
     tag: "jpn",
     description:
       "Anything relating to the countries or areas of Japan, China, or Korea.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "ind",
+    description:
+      "Resembling or featuring animals from India or Indian culture.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
