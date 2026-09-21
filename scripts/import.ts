@@ -23,7 +23,7 @@ interface RawTableRow {
   created_time: string;
 }
 
-const file = (await Bun.file(Bun.argv[2]).json()) as { Lowadi: RawTableRow[] };
+const file = (await Bun.file(Bun.argv[2]).json()) as { LowadiNoID: RawTableRow[] };
 
 interface StaticFile {
   total: number;
@@ -61,7 +61,7 @@ const stats: StatsFile = {
   months: [],
 };
 
-for (const row of file.Lowadi) {
+for (const row of file.LowadiNoID) {
   const idMatch = row.image_url.match(/(\d+)-normal\.png$/);
   if (!idMatch?.[1]) {
     console.log(`WARNING: Failed to match ID from URL ${row.image_url}`);
