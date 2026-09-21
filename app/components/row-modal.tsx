@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FaCircleInfo } from "react-icons/fa6";
+import { FaCircleInfo, FaFlag } from "react-icons/fa6";
 import type { ViewState } from "~/hooks/use-view-state";
 import {
   breedNames,
@@ -83,7 +83,7 @@ function ThumbnailInfo({ imageUrl }: { imageUrl: string }) {
         aria-label="Low resolution thumbnail"
         className="flex size-5 items-center justify-center rounded-full bg-slate-900/80 text-gray-200 hover:text-white transition-colors cursor-pointer"
       >
-        <FaCircleInfo className="h-3.5 w-3.5" />
+        <FaCircleInfo className="size-3.5" />
       </button>
 
       {!open && (
@@ -114,6 +114,60 @@ function ThumbnailInfo({ imageUrl }: { imageUrl: string }) {
             className="mt-1 inline-block text-blue-400 hover:underline"
           >
             Open original
+          </a>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ReportIssues({ row }: { row: ParsedRow }) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: PointerEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div className="group" ref={rootRef}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex h-6 items-center justify-center rounded-full bg-slate-900/80 text-gray-400 hover:text-orange-200 transition-colors cursor-pointer text-sm mx-auto"
+      >
+        <FaFlag className="size-3 mr-1.5" /> Report Issues
+      </button>
+
+      {open && (
+        <div className="absolute left-0 top-full mt-1 w-48 rounded-lg border border-slate-100/10 bg-slate-800 p-2 text-xs shadow-lg">
+          <p className="text-gray-300">
+            🗺️ Not seeing your server flag next to a retired coat? I only play on
+            Lowadi, so this will be the only server that is populated at the
+            moment. Contact me to let me know.
+          </p>
+          <p className="text-gray-300 mt-1">
+            ‼️ Many tags are up to interpretation. I may make mistakes! If you
+            see a coat that you believe has been tagged incorrectly, contact me
+            and I will review it.
+          </p>
+          <a
+            href={`mailto:contact@eatmorehaai.com?subject=${encodeURIComponent(`Issue with ID [${row.id}]`)}`}
+            className="mt-1 inline-block text-blue-400 hover:underline"
+          >
+            Send Email
           </a>
         </div>
       )}
@@ -200,6 +254,7 @@ export function RowModal({
                 {row.thumbnail_url ? (
                   <ThumbnailInfo imageUrl={row.image_url} />
                 ) : null}
+                <ReportIssues row={row} />
               </div>
               <div className="grow">
                 <Field label="Author">
@@ -347,7 +402,10 @@ export function RowModal({
                   {row.tags.map((tag) => {
                     const desc = tagDescriptions.find((d) => d.tag === tag);
                     return (
-                      <li key={tag} className="border-t border-slate-100/20 pt-1">
+                      <li
+                        key={tag}
+                        className="border-t border-slate-100/20 pt-1"
+                      >
                         <span className="font-semibold">
                           {/* @ts-expect-error */}
                           {tagNames[tag] ?? tag}:{" "}
