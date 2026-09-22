@@ -672,7 +672,7 @@ export const tagDescriptions = [
   {
     tag: "pos",
     description:
-      "The horse is standing, but with a certain pose, such as a leg being raised, or bowing down. Will always be combined with the `standing` tag.",
+      "The horse is standing, but with a certain pose, such as a leg being raised. Will always be combined with the standing tag.",
     group: "Movement",
   },
   {
