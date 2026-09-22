@@ -107,7 +107,7 @@ for (const row of file.LowadiNoID) {
     colors: colors === 0 ? undefined : colors,
     tags: tags === 0n ? undefined : tags.toString(),
     flags: flags === 0 ? undefined : flags,
-    retired_in: row.retired_in ? row.retired_in : undefined,
+    // retired_in: row.retired_in ? row.retired_in : undefined,
     horse_type: row.horse_type,
     breed_ref: row.breed_ref ? row.breed_ref : undefined,
     uses: row.uses || undefined,

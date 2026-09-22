@@ -154,14 +154,9 @@ function ReportIssues({ row }: { row: ParsedRow }) {
       {open && (
         <div className="absolute left-0 top-full mt-1 w-48 rounded-lg border border-slate-100/10 bg-slate-800 p-2 text-xs shadow-lg">
           <p className="text-gray-300">
-            🗺️ Not seeing your server flag next to a retired coat? I only play on
-            Lowadi, so this will be the only server that is populated at the
-            moment. Contact me to let me know.
-          </p>
-          <p className="text-gray-300 mt-1">
-            ‼️ Many tags are up to interpretation. I may make mistakes! If you
-            see a coat that you believe has been tagged incorrectly, contact me
-            and I will review it.
+            Many tags are up to interpretation. I may make mistakes! If you see
+            a coat that you believe has been tagged incorrectly, contact me and
+            I will review it.
           </p>
           <a
             href={`mailto:contact@eatmorehaai.com?subject=${encodeURIComponent(`Issue with ID [${row.id}]`)}`}
@@ -371,20 +366,11 @@ export function RowModal({
                 </Field>
               </div>
               <div className="grow">
-                <Field label="Retired in">
-                  {row.retired_in ? (
-                    <div className="flex flex-row gap-2">
-                      {getServerRegions(row.retired_in).map((region) => (
-                        <ServerWithFlag key={region} region={region} />
-                      ))}
-                    </div>
-                  ) : (
-                    <Dash />
-                  )}
+                <Field label="Helios Ray">
+                  {row.helios_ray ? "Yes" : "No"}
                 </Field>
               </div>
             </div>
-            <Field label="Helios Ray">{row.helios_ray ? "Yes" : "No"}</Field>
             <Field label="Max. Uses">{row.uses ?? <Dash />}</Field>
             <div className="flex border-b border-slate-100/10">
               <div className="grow">

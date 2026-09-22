@@ -110,7 +110,6 @@ const columns = [
   "horse_type",
   "breed_ref",
   "retired",
-  "retired_in",
   "helios_ray",
   "tags",
   "uploaded",
