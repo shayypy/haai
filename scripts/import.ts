@@ -23,7 +23,9 @@ interface RawTableRow {
   created_time: string;
 }
 
-const file = (await Bun.file(Bun.argv[2]).json()) as { LowadiNoID: RawTableRow[] };
+const file = (await Bun.file(Bun.argv[2]).json()) as {
+  LowadiNoID: RawTableRow[];
+};
 
 interface StaticFile {
   total: number;
@@ -250,6 +252,19 @@ if (hasFFmpeg) {
   console.log("FFmpeg not present; will not save images");
 }
 
+// default sort: newest uploaded first
+reconstructed.sort((a, b) => {
+  if (a.uploaded && b.uploaded) {
+    const au = new Date(a.uploaded);
+    const bu = new Date(b.uploaded);
+    return bu.getTime() - au.getTime();
+  } else if (b.uploaded) {
+    return 1;
+  } else if (a.uploaded) {
+    return -1;
+  }
+  return 0;
+});
 const finalData = JSON.stringify(reconstructed);
 Bun.file("./public/data.json").write(finalData);
 Bun.file("./public/hash.txt").write(
