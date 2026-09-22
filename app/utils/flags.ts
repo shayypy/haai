@@ -434,12 +434,12 @@ export const tagDescriptions = [
     group: "Color",
   },
   {
-    tag: "leopard",
+    tag: "leo",
     description: "Leopard appaloosa, spotted blanket, etc.",
     group: "Color",
   },
   {
-    tag: "pangare",
+    tag: "spot",
     description: "Any pangare-like colors, minimal sabino, or countershading.",
     group: "Color",
   },
