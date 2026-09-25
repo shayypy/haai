@@ -110,6 +110,10 @@ export const TagsFlags = {
   med: 1n << 89n,
   bh: 1n << 90n,
   ind: 1n << 91n,
+  rom: 1n << 92n,
+  aut: 1n << 93n,
+  car: 1n << 94n,
+  clo: 1n << 95n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -304,6 +308,10 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   bow: "bowing",
   how: "howrse",
   roy: "royalty",
+  rom: "roman",
+  aut: "autumn",
+  car: "carnival",
+  clo: "clouds",
 };
 
 export const tagDescriptions = [
@@ -399,6 +407,12 @@ export const tagDescriptions = [
     tag: "tack",
     description:
       "The horse is wearing tack or has human equipment, such as swords, other weapons, or armor.",
+    group: "Appearance",
+  },
+  {
+    tag: "car",
+    description:
+      "Featuring items associated with carnivals, circuses, or masquerades.",
     group: "Appearance",
   },
 
@@ -510,6 +524,11 @@ export const tagDescriptions = [
     tag: "aus",
     description:
       "Resembling or featuring animals from Australia or Australian culture.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "rom",
+    description: "Anything from or inspired by the Roman Empire.",
     group: "Countries, Cultures, or Time Periods",
   },
 
@@ -776,6 +795,18 @@ export const tagDescriptions = [
     tag: "win",
     description:
       "Wind is blowing something around the horse, or its mane and tail.",
+    group: "Weather",
+  },
+  {
+    tag: "aut",
+    description:
+      "Fallen leaves, hot chocolate, and comfy scarves, for instance.",
+    group: "Weather",
+  },
+  {
+    tag: "clo",
+    description:
+      "There are clouds around the horse, or the horse is made of clouds.",
     group: "Weather",
   },
 ];
