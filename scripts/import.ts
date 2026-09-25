@@ -14,7 +14,7 @@ interface RawTableRow {
   helios_ray: StringBoolean;
   image_url: string;
   retired: StringBoolean;
-  uses: number | "" | null;
+  uses: number | string | null;
   retired_in: string | null;
   tags: string;
   horse_type: string;
@@ -112,7 +112,7 @@ for (const row of file.LowadiNoID) {
     // retired_in: row.retired_in ? row.retired_in : undefined,
     horse_type: row.horse_type,
     breed_ref: row.breed_ref ? row.breed_ref : undefined,
-    uses: row.uses || undefined,
+    uses: row.uses ? Number(row.uses) : undefined,
     uploaded: row.uploaded
       ? new Date(row.uploaded).toISOString().split("T")[0]
       : undefined,
