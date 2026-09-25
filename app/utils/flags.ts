@@ -321,6 +321,11 @@ export const tagDescriptions = [
     group: "Appearance",
   },
   {
+    tag: "bh",
+    description: "The head is the main focus of the coat, or it's oversized.",
+    group: "Appearance",
+  },
+  {
     tag: "bt",
     description: "The tail is overly long or otherwise prominent.",
     group: "Appearance",
@@ -332,11 +337,6 @@ export const tagDescriptions = [
     group: "Appearance",
   },
   {
-    tag: "bh",
-    description: "The head is the main focus of the coat, or it's oversized.",
-    group: "Appearance",
-  },
-  {
     tag: "bp",
     description: "There are paint, tattoos, or other markings on the horse.",
     group: "Appearance",
@@ -345,6 +345,12 @@ export const tagDescriptions = [
     tag: "braids",
     description:
       "The horse has braids, flowers, or other additions to its mane and tail.",
+    group: "Appearance",
+  },
+  {
+    tag: "car",
+    description:
+      "Featuring items associated with carnivals, circuses, or masquerades.",
     group: "Appearance",
   },
   {
@@ -390,19 +396,14 @@ export const tagDescriptions = [
     description: "There is jewelry of any sort on the horse.",
     group: "Appearance",
   },
+  { tag: "mh", description: "Too many heads!", group: "Appearance" },
+  { tag: "ml", description: "Too many legs!", group: "Appearance" },
+  { tag: "mwi", description: "Too many wings!", group: "Appearance" },
   {
     tag: "roy",
     description: "Featuring items associated with royalty.",
     group: "Appearance",
   },
-  {
-    tag: "ton",
-    description: "The horse's mouth is open, or it's sticking its tongue out.",
-    group: "Appearance",
-  },
-  { tag: "mh", description: "Too many heads!", group: "Appearance" },
-  { tag: "ml", description: "Too many legs!", group: "Appearance" },
-  { tag: "mwi", description: "Too many wings!", group: "Appearance" },
   {
     tag: "tack",
     description:
@@ -410,9 +411,8 @@ export const tagDescriptions = [
     group: "Appearance",
   },
   {
-    tag: "car",
-    description:
-      "Featuring items associated with carnivals, circuses, or masquerades.",
+    tag: "ton",
+    description: "The horse's mouth is open, or it's sticking its tongue out.",
     group: "Appearance",
   },
 
@@ -482,20 +482,31 @@ export const tagDescriptions = [
     group: "Countries, Cultures, or Time Periods",
   },
   {
-    tag: "emb",
-    description: "Features country flags or national identifiers.",
-    group: "Countries, Cultures, or Time Periods",
-  },
-  {
     tag: "jpn",
     description:
       "Anything relating to the countries or areas of Japan, China, or Korea.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
+    tag: "aus",
+    description:
+      "Resembling or featuring animals from Australia or Australian culture.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "emb",
+    description: "Features country flags or national identifiers.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
     tag: "ind",
     description:
       "Resembling or featuring animals from India or Indian culture.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "med",
+    description: "Featuring medieval armor, banners, weaponry, etc.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
@@ -510,20 +521,9 @@ export const tagDescriptions = [
     group: "Countries, Cultures, or Time Periods",
   },
   {
-    tag: "med",
-    description: "Featuring medieval armor, banners, weaponry, etc.",
-    group: "Countries, Cultures, or Time Periods",
-  },
-  {
     tag: "pri",
     description:
       "Dinosaurs, shamans, extinct creatures, or other prehistoric art.",
-    group: "Countries, Cultures, or Time Periods",
-  },
-  {
-    tag: "aus",
-    description:
-      "Resembling or featuring animals from Australia or Australian culture.",
     group: "Countries, Cultures, or Time Periods",
   },
   {
@@ -538,12 +538,6 @@ export const tagDescriptions = [
     group: "Features",
   },
   {
-    tag: "stars",
-    description:
-      "There are stars, dust, vague spots of light, lightning and visible forms of electricity, or other artifacts around the horse.",
-    group: "Features",
-  },
-  {
     tag: "fla",
     description: "There are flames of any color around the horse.",
     group: "Features",
@@ -551,11 +545,6 @@ export const tagDescriptions = [
   {
     tag: "fs",
     description: "Featuring food, candy, or drinks.",
-    group: "Features",
-  },
-  {
-    tag: "gs",
-    description: "The horse is in space or is modeled after a celestial body.",
     group: "Features",
   },
   {
@@ -567,6 +556,11 @@ export const tagDescriptions = [
     tag: "jcg",
     description:
       "There are gems on or around the horse, or the horse itself is modeled after a gemstone; will not be applied if the gems are embedded within a piece of jewelry.",
+    group: "Features",
+  },
+  {
+    tag: "how",
+    description: "Referencing Howrse in some way.",
     group: "Features",
   },
   {
@@ -599,26 +593,32 @@ export const tagDescriptions = [
     group: "Features",
   },
   {
-    tag: "spo",
-    description:
-      "The horse is playing with or around items representing a certain sport.",
-    group: "Features",
-  },
-  {
     tag: "rb",
     description:
       "For rainbow or multicolored horses, or rainbows around the horse.",
     group: "Features",
   },
   {
-    tag: "swirl",
-    description:
-      "There is an abundance of swirls or spirals on or around the horse.",
+    tag: "gs",
+    description: "The horse is in space or is modeled after a celestial body.",
     group: "Features",
   },
   {
-    tag: "how",
-    description: "Referencing Howrse in some way.",
+    tag: "spo",
+    description:
+      "The horse is playing with or around items representing a certain sport.",
+    group: "Features",
+  },
+  {
+    tag: "stars",
+    description:
+      "There are stars, dust, vague spots of light, lightning and visible forms of electricity, or other artifacts around the horse.",
+    group: "Features",
+  },
+  {
+    tag: "swirl",
+    description:
+      "There is an abundance of swirls or spirals on or around the horse.",
     group: "Features",
   },
 
@@ -633,14 +633,14 @@ export const tagDescriptions = [
     group: "Holidays",
   },
   {
-    tag: "esp",
-    description:
-      "Eggs, rabbits, pastel colors, or anything with lambs or chicks.",
+    tag: "spk",
+    description: "Anything involving Halloween, pumpkins, skeletons, etc.",
     group: "Holidays",
   },
   {
-    tag: "spk",
-    description: "Anything involving Halloween, pumpkins, skeletons, etc.",
+    tag: "esp",
+    description:
+      "Eggs, rabbits, pastel colors, or anything with lambs or chicks.",
     group: "Holidays",
   },
   {
@@ -651,13 +651,15 @@ export const tagDescriptions = [
   },
 
   {
-    tag: "buck",
-    description: "The horse is on its front or hind legs only.",
+    tag: "aer",
+    description:
+      "The horse is flying, floating, swimming, or in the middle of a jump.",
     group: "Movement",
   },
+  { tag: "bow", description: "The horse is in a bow.", group: "Movement" },
   {
-    tag: "run",
-    description: "Galloping, cantering, or fast movement of any sort.",
+    tag: "buck",
+    description: "The horse is on its front or hind legs only.",
     group: "Movement",
   },
   {
@@ -667,25 +669,14 @@ export const tagDescriptions = [
     group: "Movement",
   },
   {
-    tag: "aer",
-    description:
-      "The horse is flying, floating, swimming, or in the middle of a jump.",
-    group: "Movement",
-  },
-  {
-    tag: "ghd",
-    description: "Grazing, scratching, or anything where the head is lowered.",
-    group: "Movement",
-  },
-  {
     tag: "jump",
     description:
       "The horse is beginning to, in the middle of, or landing a jump.",
     group: "Movement",
   },
   {
-    tag: "lysi",
-    description: "Sitting, lying, rolling, etc.",
+    tag: "ghd",
+    description: "Grazing, scratching, or anything where the head is lowered.",
     group: "Movement",
   },
   {
@@ -695,13 +686,22 @@ export const tagDescriptions = [
     group: "Movement",
   },
   {
+    tag: "run",
+    description: "Galloping, cantering, or fast movement of any sort.",
+    group: "Movement",
+  },
+  {
+    tag: "lysi",
+    description: "Sitting, lying, rolling, etc.",
+    group: "Movement",
+  },
+  {
     tag: "st",
     description: "The horse is standing still.",
     group: "Movement",
   },
   { tag: "trot", description: "The horse is trotting.", group: "Movement" },
   { tag: "walk", description: "The horse is walking.", group: "Movement" },
-  { tag: "bow", description: "The horse is in a bow.", group: "Movement" },
 
   {
     tag: "abs",
@@ -781,6 +781,18 @@ export const tagDescriptions = [
   },
 
   {
+    tag: "aut",
+    description:
+      "Fallen leaves, hot chocolate, and comfy scarves, for instance.",
+    group: "Weather",
+  },
+  {
+    tag: "clo",
+    description:
+      "There are clouds around the horse, or the horse is made of clouds.",
+    group: "Weather",
+  },
+  {
     tag: "sno",
     description: "There is snow on or around the horse, or involving ice.",
     group: "Weather",
@@ -795,18 +807,6 @@ export const tagDescriptions = [
     tag: "win",
     description:
       "Wind is blowing something around the horse, or its mane and tail.",
-    group: "Weather",
-  },
-  {
-    tag: "aut",
-    description:
-      "Fallen leaves, hot chocolate, and comfy scarves, for instance.",
-    group: "Weather",
-  },
-  {
-    tag: "clo",
-    description:
-      "There are clouds around the horse, or the horse is made of clouds.",
     group: "Weather",
   },
 ];
