@@ -114,6 +114,8 @@ export const TagsFlags = {
   aut: 1n << 93n,
   car: 1n << 94n,
   clo: 1n << 95n,
+  ddm: 1n << 96n,
+  hum: 1n << 97n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -205,7 +207,6 @@ export const breedNames: Record<string, string> = {
   haf: "Haflinger",
   hd: "Heavy Draft",
   ic: "Irish Cob",
-  knb: "Knabstrupper",
   ld: "Light Draft",
   mw: "Marwari",
   nor: "Nordics",
@@ -213,6 +214,25 @@ export const breedNames: Record<string, string> = {
   tb: "Thoroughbred",
   tr: "Trotter",
   wb: "Warmblood",
+};
+
+export const breedDescriptions: Record<string, string> = {
+  at: "Lean, hotblooded horses suited for the deserts of Turkmenistan.",
+  ac: "A warmblood-type horse with distinctively curly coats, manes, and tails.",
+  am: "Group tag for any horse resembling an Appaloosa, Mustang, Criollo, Paint Horse, Quarter Horse, any patterned breed from the Americas, or horses with the leopard complex.",
+  ah: "Lean, hot-blooded horses suited for the Arabian deserts.",
+  dp: "Chunky and hairy ponies.",
+  fri: "Light draft style horses, often with feathering, and with a black coat.",
+  haf: "Smaller, stockier horses that come in various shades of flaxen chestnut.",
+  hd: "Any depiction of a large draft horse.",
+  ic: "Light draft style horses with feathering, and with long manes and tails; often tobiano.",
+  ld: "Any depiction of a smaller draft, or horses with feathering (excluding Irish Cobs).",
+  mw: "Lean, hotblood-type horses with adorably curly ears.",
+  nor: "Icelandics, Finnhorses, Fjords, and other Nordic breeds of horses.",
+  spy: "A warmblood type, non-chunky pony, such as the Connemara or Welsh Pony.",
+  tb: "Lean horses with the “thoroughbred” look.",
+  tr: "French Trotters, Orlov Trotters, Tennessee Walkers, Standardbreds, etc.",
+  wb: "Catch-all category for anything not resembling a draft or a hotblooded breed.",
 };
 
 export const tagNames: Record<keyof typeof TagsFlags, string> = {
@@ -312,9 +332,15 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   aut: "autumn",
   car: "carnival",
   clo: "clouds",
+  ddm: "dia de meurtos",
+  hum: "anthro",
 };
 
-export const tagDescriptions = [
+export const tagDescriptions: {
+  tag: string;
+  description: string;
+  group: string;
+}[] = [
   {
     tag: "ab",
     description: "Resembling angels or demons.",
@@ -628,6 +654,12 @@ export const tagDescriptions = [
     group: "Holidays",
   },
   {
+    tag: "ddm",
+    description:
+      "Anything relating to the Mexican holiday of Día de Muertos, the Day of the Dead. This tag will be combined with spooky to help people searching for Halloween-related coats as well.",
+    group: "Holidays",
+  },
+  {
     tag: "nyd",
     description: "Presents, garland, reindeer, Santa Claus, etc.",
     group: "Holidays",
@@ -712,34 +744,40 @@ export const tagDescriptions = [
   {
     tag: "anb",
     description: "The horse resembles a bird.",
-    group: "Styles/Animal type",
+    group: "Animals",
   },
   {
     tag: "ant",
     description: "The horse resembles a fictional species of animal.",
-    group: "Styles/Animal type",
+    group: "Animals",
   },
   {
     tag: "anf",
     description:
       "The horse resembles a fish or aquatic creature (includes aquatic mammals).",
-    group: "Styles/Animal type",
+    group: "Animals",
+  },
+  {
+    tag: "hum",
+    description:
+      "Drawn to resemble a human. This tag will not automatically be applied if the horse is wearing human accessories or clothing; only if it has human characteristics.",
+    group: "Animals",
   },
   {
     tag: "ani",
     description:
       "The horse resembles an insect, arachnid, or mollusc (land snails and slugs).",
-    group: "Styles/Animal type",
+    group: "Animals",
   },
   {
     tag: "anm",
     description: "The horse resembles a different mammal.",
-    group: "Styles/Animal type",
+    group: "Animals",
   },
   {
     tag: "anr",
     description: "The horse resembles a reptile or amphibian.",
-    group: "Styles/Animal type",
+    group: "Animals",
   },
   {
     tag: "cute",

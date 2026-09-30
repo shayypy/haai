@@ -1,5 +1,10 @@
 import { Link } from "react-router";
-import { tagDescriptions, tagNames } from "~/utils/flags";
+import {
+  breedDescriptions,
+  breedNames,
+  tagDescriptions,
+  tagNames,
+} from "~/utils/flags";
 import { Cell } from "./home";
 
 const tagsByGroup = Object.fromEntries(
@@ -53,6 +58,25 @@ export function TagsPage() {
             </div>
           </div>
         ))}
+        <hr className="mt-4 mb-2 rounded border border-gray-500" />
+        <p className="font-semibold text-xl" id="breed-representation">
+          Breed Representation
+        </p>
+        <div className="mt-1 rounded-lg bg-slate-900 border-2 border-slate-100/10 overflow-y-hidden overflow-x-auto flex flex-col gap-0.5">
+          {Object.entries(breedDescriptions).map(([breed, description]) => (
+            <div key={breed} className="flex gap-0.5">
+              <Cell title>
+                <Link
+                  to={`/?breed_ref=${breed}`}
+                  className="block cursor-default hover:underline underline-offset-2 w-full"
+                >
+                  {breedNames[breed] ?? breed}
+                </Link>
+              </Cell>
+              <Cell width="100%">{description}</Cell>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
