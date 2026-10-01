@@ -220,7 +220,7 @@ export const breedDescriptions: Record<string, string> = {
   at: "Lean, hotblooded horses suited for the deserts of Turkmenistan.",
   ac: "A warmblood-type horse with distinctively curly coats, manes, and tails.",
   am: "Group tag for any horse resembling an Appaloosa, Mustang, Criollo, Paint Horse, Quarter Horse, any patterned breed from the Americas, or horses with the leopard complex.",
-  ah: "Lean, hot-blooded horses suited for the Arabian deserts.",
+  ah: "Lean, hotblooded horses suited for the Arabian deserts.",
   dp: "Chunky and hairy ponies.",
   fri: "Light draft style horses, often with feathering, and with a black coat.",
   haf: "Smaller, stockier horses that come in various shades of flaxen chestnut.",
@@ -332,7 +332,7 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   aut: "autumn",
   car: "carnival",
   clo: "clouds",
-  ddm: "dia de meurtos",
+  ddm: "dia de muertos",
   hum: "anthro",
 };
 
