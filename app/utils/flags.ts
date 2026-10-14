@@ -116,6 +116,8 @@ export const TagsFlags = {
   clo: 1n << 95n,
   ddm: 1n << 96n,
   hum: 1n << 97n,
+  vik: 1n << 98n,
+  cen: 1n << 99n,
 };
 
 export const parseFlags = <Key extends string = string>(
@@ -334,6 +336,8 @@ export const tagNames: Record<keyof typeof TagsFlags, string> = {
   clo: "clouds",
   ddm: "dia de muertos",
   hum: "anthro",
+  vik: "vikings",
+  cen: "facing center",
 };
 
 export const tagDescriptions: {
@@ -405,6 +409,12 @@ export const tagDescriptions: {
     tag: "right",
     description:
       "The horse is facing right, or if its head is turned, the body is pointing towards the right.",
+    group: "Appearance",
+  },
+  {
+    tag: "cen",
+    description:
+      "The horse is in the center, whether it is turned to or away from the viewer.",
     group: "Appearance",
   },
   {
@@ -555,6 +565,12 @@ export const tagDescriptions: {
   {
     tag: "rom",
     description: "Anything from or inspired by the Roman Empire.",
+    group: "Countries, Cultures, or Time Periods",
+  },
+  {
+    tag: "vik",
+    description:
+      "Featuring elements from Norse mythology or Norse culture, runes, axes, etc.",
     group: "Countries, Cultures, or Time Periods",
   },
 
