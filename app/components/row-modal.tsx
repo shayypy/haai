@@ -159,7 +159,7 @@ function ReportIssues({ row }: { row: ParsedRow }) {
             I will review it.
           </p>
           <a
-            href={`mailto:contact@eatmorehaai.com?subject=${encodeURIComponent(`Issue with ID [${row.id}]`)}`}
+            href={`mailto:contact@eatmorehaai.com?subject=${encodeURIComponent(`Issue with ID [${row.id}][${row.server ?? ""}]`)}`}
             className="mt-1 inline-block text-blue-400 hover:underline"
           >
             Send Email
@@ -213,7 +213,7 @@ export function RowModal({
                 type="button"
                 onClick={async (e) => {
                   const { currentTarget } = e;
-                  const copied = await copyText(`${origin}/?row=${row.id}`);
+                  const copied = await copyText(`${origin}/?row=${row.hash}`);
                   if (copied) {
                     currentTarget.innerText = "Copied";
                   } else {
