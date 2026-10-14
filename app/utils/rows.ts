@@ -2,6 +2,7 @@ import { ColorFlags, parseFlags, RowFlags, TagsFlags } from "./flags";
 import type { TableRow } from "./types";
 
 export interface ParsedRow {
+  hash: string;
   id: number;
   name: string;
   author: string;
@@ -26,13 +27,14 @@ export const processRow = (row: TableRow): ParsedRow => {
   const colors = parseFlags(row.colors ?? 0, ColorFlags);
   const tags = parseFlags(BigInt(row.tags ?? 0), TagsFlags);
   return {
+    hash: row.hash,
     id: row.id,
     name: row.name,
     author: row.author,
     server: row.server,
     image_url: row.image_url,
     thumbnail_url: parseFlags(row.flags ?? 0, RowFlags).includes("HasThumbnail")
-      ? `${origin}/images/${row.id}.webp`
+      ? `${origin}/images/${row.hash}.webp`
       : undefined,
     retired: parseFlags(row.flags ?? 0, RowFlags).includes("Retired"),
     helios_ray: parseFlags(row.flags ?? 0, RowFlags).includes("HeliosRay"),

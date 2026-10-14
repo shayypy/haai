@@ -25,7 +25,7 @@ export interface ViewState {
   dir: SortDir;
   page: number;
   limit: limit;
-  row: number | null;
+  row: string | null;
   layout: ViewLayout;
   uploaded_from: string | null;
   uploaded_to: string | null;
@@ -125,7 +125,6 @@ export function useViewState() {
 
   const view = useMemo<ViewState>(() => {
     const page = Number(searchParams.get("page"));
-    const row = Number(searchParams.get("row"));
     const uses = Number(searchParams.get("uses"));
     return {
       q: searchParams.get("q") ?? "",
@@ -142,7 +141,7 @@ export function useViewState() {
       dir: searchParams.get("dir") === "desc" ? "desc" : "asc",
       page: Number.isFinite(page) && page > 0 ? page : 1,
       limit: parselimit(searchParams.get("limit")),
-      row: searchParams.has("row") && Number.isFinite(row) ? row : null,
+      row: searchParams.get("row"),
       layout: searchParams.get("layout") === "gallery" ? "gallery" : "table",
       uploaded_from: searchParams.get("uploaded_from"),
       uploaded_to: searchParams.get("uploaded_to"),

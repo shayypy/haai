@@ -180,7 +180,7 @@ export function Home() {
   }, [sortedRows, view.page, view.limit]);
 
   const openRow =
-    view.row != null ? parsedRows.find((r) => r.id === view.row) : undefined;
+    view.row != null ? parsedRows.find((r) => r.hash === view.row) : undefined;
 
   return (
     <div className="py-6">
@@ -221,10 +221,12 @@ export function Home() {
             <div className="mt-2 gap-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7">
               {pageRows.map((row) => (
                 <button
-                  key={`row-${row.id}`}
+                  key={`row-${row.hash}`}
                   type="button"
                   className="rounded-lg bg-slate-800 border-2 border-slate-100/10 group hover:-translate-y-1.5 transition-transform"
-                  onClick={() => update({ row: row.id }, { resetPage: false })}
+                  onClick={() =>
+                    update({ row: row.hash }, { resetPage: false })
+                  }
                 >
                   <div className="relative">
                     <img
@@ -301,13 +303,13 @@ export function Home() {
                 ))}
               </div>
               {pageRows.map((row) => (
-                <div key={`row-${row.id}`} className="flex gap-0.5">
+                <div key={`row-${row.hash}`} className="flex gap-0.5">
                   {columns.map((col) => {
                     // @ts-expect-error
                     const value = row[col];
                     return (
                       <Cell
-                        key={`${row.id}-${col}`}
+                        key={`${row.hash}-${col}`}
                         width={widths[col]}
                         className={
                           Array.isArray(value) && value.length !== 0
@@ -374,7 +376,7 @@ export function Home() {
                           <button
                             type="button"
                             onClick={() =>
-                              update({ row: row.id }, { replace: false })
+                              update({ row: row.hash }, { replace: false })
                             }
                             className="text-left w-full truncate hover:underline underline-offset-2"
                           >

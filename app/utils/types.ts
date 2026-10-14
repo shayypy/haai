@@ -1,4 +1,5 @@
 export interface TableRow {
+  hash: string;
   id: number;
   name: string;
   author: string;

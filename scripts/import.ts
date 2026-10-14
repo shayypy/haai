@@ -1,4 +1,4 @@
-import { mkdir, readdir, rm } from "node:fs/promises";
+import { mkdir, readdir, rename, rm } from "node:fs/promises";
 import path from "node:path";
 import { $ } from "bun";
 import { ColorFlags, RowFlags, TagsFlags } from "~/utils/flags";
@@ -50,7 +50,7 @@ const separate = (string: string, splitter = ",") =>
   string.split(splitter).map((sub) => sub.trim());
 
 const reconstructed: TableRow[] = [];
-const allIds = new Set<number>();
+const allHashes = new Set<string>();
 const stats: StatsFile = {
   usage: {
     colors: {},
@@ -70,14 +70,15 @@ for (const row of file.LowadiNoID) {
     continue;
   }
   const id = Number(idMatch[1]);
+  const hash = Bun.hash(`${id}:${row.server}`).toString();
 
-  if (allIds.has(id)) {
+  if (allHashes.has(hash)) {
     console.log(
-      `WARNING: ID ${id} has already appeared once; skipping this row`,
+      `WARNING: ${id}[${row.server}] has already appeared once; skipping this row`,
     );
     continue;
   }
-  allIds.add(id);
+  allHashes.add(hash);
 
   let flags = 0;
   if (row.helios_ray === "TRUE") flags |= RowFlags.HeliosRay;
@@ -101,6 +102,7 @@ for (const row of file.LowadiNoID) {
   }
 
   const newRow: TableRow = {
+    hash,
     id,
     name: row.name,
     author: row.author,
@@ -147,6 +149,17 @@ for (const row of file.LowadiNoID) {
         month: date.getUTCMonth(),
         apples: 1,
       });
+    }
+
+    // check for "retired modern" coats without "uses", which is apparently a no-no
+    if (
+      date.getTime() >= new Date(2011, 4, 31).getTime() &&
+      row.retired === "TRUE" &&
+      !row.uses
+    ) {
+      console.log(
+        `WARNING: ${id}[${row.server}] is modern and retired but has no uses`,
+      );
     }
   }
   // add missing months if there is a total but no indexed data
@@ -200,18 +213,47 @@ for (const row of file.LowadiNoID) {
   }
 }
 
-const excessImages = extantImages.filter((filename) => {
-  const id = Number(filename.replace(".webp", ""));
-  return reconstructed.find((r) => r.id === id) === undefined;
-});
+const excessImages: {
+  filename: string;
+  renameTo?: string;
+}[] = [];
+for (const filename of extantImages) {
+  const hash = filename.replace(".webp", "");
+  if (reconstructed.find((r) => r.hash === hash) !== undefined) {
+    // not excess
+    continue;
+  }
+
+  if (hash.length < 15) {
+    const id = Number(hash);
+    if (!Number.isNaN(id)) {
+      const legacyMatch = reconstructed.find((r) => r.id === id);
+      if (legacyMatch) {
+        excessImages.push({ filename, renameTo: `${legacyMatch.hash}.webp` });
+        continue;
+      }
+    }
+  }
+  excessImages.push({ filename });
+}
 if (excessImages.length !== 0) {
-  console.log(`Found ${excessImages.length} saved IDs no longer in dataset`);
-  for (const filename of excessImages) {
+  console.log(
+    `Found ${excessImages.length} possibly excess local images no longer in dataset`,
+  );
+  for (const { filename, renameTo } of excessImages) {
     try {
-      await rm(path.join(imagesPath, filename));
-      console.log(`- Deleted ${filename}`);
+      if (renameTo) {
+        await rename(
+          path.join(imagesPath, filename),
+          path.join(imagesPath, renameTo),
+        );
+        console.log(`- Renamed ${filename} -> ${renameTo}`);
+      } else {
+        await rm(path.join(imagesPath, filename));
+        console.log(`- Deleted ${filename}`);
+      }
     } catch {
-      console.log(`- Failed to delete ${filename}`);
+      console.log(`- Failed to move ${filename}`);
     }
   }
 }
@@ -221,7 +263,7 @@ if (hasFFmpeg) {
   let i = 0;
   for (const row of reconstructed) {
     i += 1;
-    const filename = `${row.id}.webp`;
+    const filename = `${row.hash}.webp`;
     if (extantImages.includes(filename)) {
       row.flags = (row.flags ?? 0) | RowFlags.HasThumbnail;
       continue;
